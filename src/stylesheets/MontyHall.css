@@ -1,0 +1,68 @@
+.monty-hall-container {
+  background-color: white;
+  border-width: 1px;
+  border-color: lightgray;
+  border-style: solid;
+
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.scoreboard-container {
+  padding: 1em;
+  display: flex;
+  flex-flow: column;
+}
+
+.scoreboard-heading {
+  text-align: center;
+  font-family: "Yellowtail", cursive;
+  font-size: 2rem;
+
+  border-width: 0 0 1px 0;
+  border-color: lightgray;
+  border-style: solid;
+}
+
+.scoreboard-description {
+  text-align: justify;
+  font-size: 1rem;
+  padding: 1em;
+}
+
+.interactive-container {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.doors-container,
+.stick-switch-container {
+  width: 90%;
+  margin: 2.5%;
+  display: flex;
+  justify-content: center;
+}
+
+#stick-button,
+#switch-button {
+  width: 200px;
+  margin: 2.5%;
+}
+
+#door-button {
+  border-width: 1px;
+  border-color: lightgray;
+  border-style: solid;
+
+  width: 160px;
+  height: 160px;
+
+  margin: 2.5%;
+}
+
+#door-button:hover {
+  background-color: whitesmoke;
+}

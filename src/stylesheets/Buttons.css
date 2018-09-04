@@ -1,0 +1,59 @@
+.button-defaults {
+  background-color: white;
+  color: gray;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.button-defaults:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.square-button {
+  background-color: white;
+  color: gray;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+}
+
+.square-button:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.panel-button {
+  background-color: white;
+  color: gray;
+  display: flex;
+  align-items: center;
+  padding: 0 1em 0 1em;
+  justify-content: center;
+}
+
+.panel-button:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.rectangle-button {
+  background-color: white;
+  border-width: 1px;
+  border-color: lightgray;
+  border-style: solid;
+
+  color: gray;
+  display: flex;
+  align-items: center;
+  height: 48px;
+}
+
+.rectangle-button:hover {
+  cursor: pointer;
+  color: black;
+}
