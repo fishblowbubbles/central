@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import { Hero } from "../components/Hero.js";
 import { MontyHall } from "../components/MontyHall.js";
+import "../stylesheets/Home.css";
 
 export class Home extends Component {
   render() {
     return (
       <div className="home-container">
-        <Hero>
+        <div className="left-subpanel" />
+        <div className="right-subpanel">
           <MontyHall />
-        </Hero>
+        </div>
       </div>
     );
   }

@@ -6,9 +6,9 @@ import { SquareButton, PanelButton } from "./Buttons.js";
 import "../stylesheets/Menu.css";
 
 const MenuConfig = [
-  [{ text: "Home", link: "/" }, { text: "About", link: "/" }],
-  [{ text: "Projects", link: "/" }, { text: "Journal", link: "/journal" }],
-  [{ text: "Contact", link: "/"}]
+  [{ text: "home", link: "/central" }, { text: "about", link: "/central" }],
+  [{ text: "blog", link: "/central/blog" }, { text: "projects", link: "/central" }],
+  [{ text: "contact", link: "/central"}]
 ];
 
 export const MenuPanel = props => (

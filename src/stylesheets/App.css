@@ -10,10 +10,11 @@
 }
 
 #open-menu {
+  background: none;
   position: fixed;
   top: 5%;
   left: 5%;
-  z-index: 1;
+  z-index: 2;
 }
 
 .template-body {

@@ -24,6 +24,6 @@ export const PanelButton = props => (
 export const RectangleButton = props => (
   <div id={props.id} className="rectangle-button button-defaults">
     <SquareButton icon={props.icon} handleClick={props.handleClick} />
-    <PanelButton text={props.text} handleClick={props.handleClick} />
+    <PanelButton text={props.text} handleClick={props.handleClick}  />
   </div>
 );

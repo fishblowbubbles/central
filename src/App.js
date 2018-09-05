@@ -4,7 +4,7 @@ import { Menu } from "grommet-icons";
 import { MenuPanel } from "./components/Menu.js";
 import { SquareButton } from "./components/Buttons.js";
 import { Home } from "./pages/Home.js";
-import { Journal } from "./pages/Journal.js";
+import { Blog } from "./pages/Blog.js";
 import "./stylesheets/App.css";
 
 export const MenuContext = React.createContext();
@@ -30,14 +30,14 @@ export default class App extends Component {
       <div className="app-container">
         <SquareButton
           id="open-menu"
-          icon={<Menu />}
+          icon={<Menu color="#333333" />}
           handleClick={this.toggleMenu}
         />
         <MenuContext.Provider value={value}>
           <MenuPanel id={this.state.menuOpen ? "show" : "hide"} />
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/journal" component={Journal} />
+            <Route exact path="/central" component={Home} />
+            <Route exact path="/central/blog" component={Blog} />
           </Switch>
         </MenuContext.Provider>
       </div>
