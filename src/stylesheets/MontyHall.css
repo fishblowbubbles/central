@@ -38,8 +38,18 @@
   grid-area: interactive;
 }
 
-.monty-hall-scoreboard {
+.monty-hall-interactive-scoreboard {
   position: relative;
+}
+
+.scoreboard, .scoreboard-table {
+  width: 100%;
+}
+
+.scoreboard-heading {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  text-align: center;
 }
 
 .monty-hall-interactive-gifts {
@@ -54,34 +64,6 @@
   align-items: center;
 }
 
-.scoreboard-table, th, td {
-  font-family: 'Permanent Marker', cursive;
-  border-width: 1px;
-  border-color: lightgray;
-  border-style: solid;
-}
-
-.scoreboard {
-  width: 100%;
-}
-
-.scoreboard-heading {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 2rem;
-  text-align: center;
-}
-
-.scoreboard-table {
-  width: 100%;
-}
-
-th, td {
-  text-align: center;
-  border-width: 1px;
-  border-color: lightgray;
-  border-style: solid;
-}
-
 #stick-switch-button, #play-again-button {
   font-size: 1rem;
 }
@@ -90,6 +72,18 @@ th, td {
   text-align: center;
   font-family: "Permanent Marker", cursive;
   font-size: 1.5rem;
+}
+
+th, td {
+  text-align: center;
+  font-family: 'Permanent Marker', cursive;
+  border-width: 1px;
+  border-color: lightgray;
+  border-style: solid;
+}
+
+h2 {
+  text-decoration: underline;
 }
 
 .door-button {
@@ -112,8 +106,4 @@ th, td {
 
 .door-button#highlight {
   border-color: #333333;
-}
-
-h2 {
-  text-decoration: underline;
 }

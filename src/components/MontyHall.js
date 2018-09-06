@@ -33,7 +33,7 @@ export class MontyHall extends Component {
   };
 
   handleSwitchClick = e => {
-    this.switchPlayerSelection();
+    this.selection = this.switchPlayerSelection();
     this.checkWin("switch");
   };
 
@@ -82,7 +82,7 @@ export class MontyHall extends Component {
   switchPlayerSelection = () => {
     for (let i = 0; i < this.doors.length; i++) {
       if (this.doors[i] !== -1 && i !== this.selection) {
-        this.selection = i;
+        return i;
       }
     }
   };
@@ -104,7 +104,7 @@ export class MontyHall extends Component {
 
       return (
         <DoorButton
-          id={index === this.selection ? "highlight" : "normal"}
+          id={index === this.selection ? "highlight" : ""}
           icon={icon}
           stage={this.state.stage}
           handleClick={() => this.handleSelectClick(index)}
