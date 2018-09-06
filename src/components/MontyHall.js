@@ -80,11 +80,11 @@ export class MontyHall extends Component {
   };
 
   switchPlayerSelection = () => {
-    this.doors.forEach((item, index) => {
-      if (item !== -1 && index !== this.selection) {
-        this.selection = index;
+    for (let i = 0; i < this.doors.length; i++) {
+      if (this.doors[i] !== -1 && i !== this.selection) {
+        this.selection = i;
       }
-    });
+    }
   };
 
   getDoorButtons = () => {
