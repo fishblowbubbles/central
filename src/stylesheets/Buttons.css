@@ -1,17 +1,13 @@
 .button-defaults {
   background-color: white;
+  white-space: pre;
   color: gray;
   display: flex;
   align-items: center;
 }
 
-.button-defaults:hover {
-  cursor: pointer;
-  color: black;
-}
-
 .square-button {
-  background-color: white;
+  background: none;
   color: gray;
   display: flex;
   align-items: center;
@@ -21,12 +17,12 @@
 }
 
 .square-button:hover {
+  transform: scale(1.05, 1.05);
   cursor: pointer;
-  color: black;
 }
 
 .panel-button {
-  background-color: white;
+  background: none;
   color: gray;
   display: flex;
   align-items: center;
@@ -36,21 +32,22 @@
 
 .panel-button:hover {
   cursor: pointer;
-  color: black;
 }
 
 .rectangle-button {
   background-color: white;
+  font-weight: bold;
   border-width: 1px;
   border-color: lightgray;
   border-style: solid;
   color: gray;
+  width: auto;
   display: flex;
   align-items: center;
   height: 48px;
 }
 
 .rectangle-button:hover {
+  transform: scale(1.05, 1.05);
   cursor: pointer;
-  color: black;
 }

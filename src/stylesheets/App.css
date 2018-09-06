@@ -9,23 +9,14 @@
   padding: 0;
 }
 
+.app {
+  background-color: black;
+}
+
 #open-menu {
   background: none;
   position: fixed;
   top: 5%;
   left: 5%;
   z-index: 2;
-}
-
-.template-body {
-  transition: transform 0.2s ease-out;
-  overflow-x: hidden;
-}
-
-.template-body#hide {
-  transform: translateX(0);
-}
-
-.template-body#show {
-  transform: translateX(350px);
 }

@@ -3,7 +3,7 @@ import "../stylesheets/Buttons.css";
 
 export const SquareButton = props => (
   <div
-    id={props.id}
+    {...props}
     className="square-button button-defaults"
     onClick={props.handleClick}
   >
@@ -13,7 +13,7 @@ export const SquareButton = props => (
 
 export const PanelButton = props => (
   <div
-    id={props.id}
+    {...props}
     className="panel-button button-defaults"
     onClick={props.handleClick}
   >
@@ -22,8 +22,8 @@ export const PanelButton = props => (
 );
 
 export const RectangleButton = props => (
-  <div id={props.id} className="rectangle-button button-defaults">
-    <SquareButton icon={props.icon} handleClick={props.handleClick} />
-    <PanelButton text={props.text} handleClick={props.handleClick}  />
+  <div {...props} className="rectangle-button button-defaults" onClick={props.handleClick}>
+    <SquareButton icon={props.icon} />
+    <PanelButton text={props.text} />
   </div>
 );

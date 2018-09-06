@@ -27,10 +27,10 @@ export default class App extends Component {
     };
 
     return (
-      <div className="app-container">
+      <div className="app">
         <SquareButton
           id="open-menu"
-          icon={<Menu color="#333333" />}
+          icon={<Menu />}
           handleClick={this.toggleMenu}
         />
         <MenuContext.Provider value={value}>

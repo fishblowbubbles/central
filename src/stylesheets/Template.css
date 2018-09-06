@@ -1,0 +1,11 @@
+.template {
+  transition: transform 0.2s ease-out;
+}
+
+.template#hide {
+  transform: translateX(0) scale(1, 1);
+}
+
+.template#show {
+  transform: translateX(400px) scale(0.8, 0.8);
+}

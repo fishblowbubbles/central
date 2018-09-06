@@ -1,5 +1,5 @@
 .menu-panel {
-  background-color: white;
+  background-color: #333333;
   font-size: 24px;
   width: 400px;
   height: 100vh;
@@ -45,7 +45,7 @@
 }
 
 .menu-panel #menu-item:hover {
-  color: black;
+  color: white;
 }
 
 .menu-panel-share-ribbon {
