@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import { Diamond, Gift, Gremlin, Refresh, Secure, Shift } from "grommet-icons";
 import { RectangleButton } from "./Buttons.js";
-import { Slider, SliderItem } from "./Slider.js";
+import { Slider } from "./Slider.js";
 import "../stylesheets/MontyHall.css";
 
 export class MontyHall extends Component {
-  selection = -1;
-  doors = [0, 0, 0];
-  stickWins = 0;
-  switchWins = 0;
-  stickLosses = 0;
-  switchLosses = 0;
-
-  state = {
-    stage: 0
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      stage: 0
+    };
+    this.score = [[0, 0], [0, 0]];
+    this.doors = [0, 0, 0];
+    this.selection = -1;
+  }
 
   componentDidMount() {
     this.setPrizePosition();
@@ -22,22 +21,22 @@ export class MontyHall extends Component {
 
   handleSelectClick = index => {
     this.selection = index;
-    this.openWrongDoor();
+    this.openGremlinGift();
     this.setState({
       stage: this.state.stage + 1
     });
   };
 
   handleStickClick = e => {
-    this.checkWin("stick");
+    this.updateScore("stick");
   };
 
   handleSwitchClick = e => {
-    this.switchPlayerSelection();
-    this.checkWin("switch");
+    this.selection = this.switchPlayerSelection();
+    this.updateScore("switch");
   };
 
-  handleResetClick = e => {
+  handlePlayAgainClick = e => {
     this.doors = [0, 0, 0];
     this.selection = -1;
     this.setPrizePosition();
@@ -55,82 +54,70 @@ export class MontyHall extends Component {
     this.doors[prizePosition] = 1;
   };
 
-  openWrongDoor = () => {
-    let zeroPositions = this.getZeroPositions();
-    let hostSelection = this.randomRange(0, zeroPositions.length);
-    let toOpen = zeroPositions[hostSelection];
+  openGremlinGift = () => {
+    let gremlinPositions = this.getGremlinPositions();
+    let hostSelection = this.randomRange(0, gremlinPositions.length);
+    let toOpen = gremlinPositions[hostSelection];
     this.doors[toOpen] = -1;
   };
 
   switchPlayerSelection = () => {
     for (let i = 0; i < this.doors.length; i++) {
       if (this.doors[i] !== -1 && i !== this.selection) {
-        this.selection = i;
-        return;
+        return i;
       }
     }
   };
 
-  checkWin = choice => {
-    if (this.doors[this.selection] === 1) {
-      if (choice === "stick") {
-        this.stickWins += 1;
-      } else if (choice === "switch") {
-        this.switchWins += 1;
-      }
-    } else {
-      if (choice === "stick") {
-        this.stickLosses += 1;
-      } else if (choice === "switch") {
-        this.switchLosses += 1;
-      }
-    }
-
+  updateScore = choice => {
+    let i = this.doors[this.selection] === 1 ? 0 : 1;
+    let j = choice === "stick" ? 0 : 1;
+    this.score[i][j] += 1;
     this.setState({
       stage: this.state.stage + 1
     });
   };
 
-  getZeroPositions = () => {
-    let zeroPositions = [];
-    this.doors.forEach((item, index) => {
-      if (item === 0 && index !== this.selection) {
-        zeroPositions.push(index);
+  getGremlinPositions = () => {
+    let gremlinPositions = [];
+    for (let i = 0; i < this.doors.length; i++) {
+      if (this.doors[i] === 0 && i !== this.selection) {
+        gremlinPositions.push(i);
       }
-    });
-    return zeroPositions;
+    }
+    return gremlinPositions;
+  };
+
+  getDoorIcon = value => {
+    let icon = <Gift />;
+    if (value === -1) {
+      icon = <Gremlin />;
+    } else if (this.state.stage === 2) {
+      // reveal gifts
+      if (value === 0) {
+        icon = <Gremlin />;
+      } else if (value === 1) {
+        icon = <Diamond />;
+      }
+    }
+    return icon;
   };
 
   displayDoorButtons = () => {
-    return this.doors.map((status, index) => {
-      let icon = <Gift />;
-      if (this.state.stage === 2) {
-        if (status === 0) {
-          icon = <Gremlin />;
-        } else if (status === 1) {
-          icon = <Diamond />;
-        }
-      }
-
-      if (status === -1) {
-        icon = <Gremlin />;
-      }
-
-      return (
-        <DoorButton
-          id={index === this.selection ? "highlight" : ""}
-          icon={icon}
-          stage={this.state.stage}
-          handleClick={() => this.handleSelectClick(index)}
-          disabled={this.state.stage !== 0}
-        />
-      );
-    });
+    return this.doors.map((value, index) => (
+      <DoorButton
+        id={index === this.selection ? "highlight" : ""}
+        icon={this.getDoorIcon(value)}
+        stage={this.state.stage}
+        handleClick={() => this.handleSelectClick(index)}
+        disabled={this.state.stage !== 0}
+      />
+    ));
   };
 
   displayCurrentInstruction = () => {
     if (this.state.stage === 0) {
-      return <Instruction text="Select a gift!" />;
+      return <Instruction text="P I C K    A    G I F T  !" />;
     } else if (this.state.stage === 1) {
       return (
         <StickSwitch
@@ -139,20 +126,16 @@ export class MontyHall extends Component {
         />
       );
     } else if (this.state.stage === 2) {
-      const playAgain = (
-        <RectangleButton
-          id="play-again-button"
-          icon={<Refresh />}
-          text="P L A Y    A G A I N"
-          handleClick={this.handleResetClick}
-        />
-      );
       return (
         <React.Fragment>
           {this.doors[this.selection] === 1 ? (
-            <Instruction text="Nice job!">{playAgain}</Instruction>
+            <Instruction text="W E L L    D O N E  !">
+              <PlayAgain handleClick={this.handlePlayAgainClick} />
+            </Instruction>
           ) : (
-            <Instruction text="Ugh, gremlin!">{playAgain}</Instruction>
+            <Instruction text="U G H ,    G R E M L I N  !">
+              <PlayAgain handleClick={this.handlePlayAgainClick} />
+            </Instruction>
           )}
         </React.Fragment>
       );
@@ -161,78 +144,65 @@ export class MontyHall extends Component {
 
   render() {
     return (
-      <div className="monty-hall">
+      <div id={this.props.id} className="monty-hall">
         <div className="monty-hall-heading">Monty Hall Simulator</div>
         <Slider id="monty-hall-slider">
-          <SliderItem>
-            <div className="monty-hall-slider-description">
-              <h2>The Problem</h2>
+          <div className="monty-hall-slider-description">
+            <h2>T H E    P R O B L E M</h2>
+            <br />
+            <p>
+              Suppose you're on a game show, and you're given the choice of
+              three gifts: inside one is a diamond; behind the others, gremlins.
               <br />
-              <p>
-                Suppose you're on a game show, and you're given the choice of
-                three gifts: inside one is a diamond; behind the others,
-                gremlins.
-                <br />
-                <br />
-                You pick a gift, say No. 1, and the host, who knows what's
-                inside the gifts, opens another gift, say No. 3, which has a
-                gremlin.
-                <br />
-                <br />
-                He then says to you, ‘Do you want to pick gift No. 2 instead?’
-                Is it to your advantage to switch your choice?
-              </p>
-            </div>
-          </SliderItem>
-          <SliderItem>
-            <div className="monty-hall-slider-description">
-              <h2>The Experiment</h2>
               <br />
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere
-                natus beatae saepe tenetur iste iusto laudantium architecto,
-                maiores qui quisquam excepturi quidem placeat labore veniam. At
-                blanditiis laborum excepturi adipisci.
-                <br />
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, a.
-                Ex perferendis temporibus, maxime at asperiores porro et tempora
-                omnis fugit necessitatibus, inventore repellat autem.
-              </p>
-            </div>
-          </SliderItem>
-          <SliderItem>
-            <div className="monty-hall-slider-description">
-              <h2>The Solution</h2>
+              You pick a gift, say No. 1, and the host, who knows what's inside
+              the gifts, opens another gift, say No. 3, which has a gremlin.
               <br />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Ducimus, tempora blanditiis esse explicabo dolores eum facere
-                harum pariatur officiis sint officia saepe tempore corporis.
-                <br />
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
-                ratione tenetur earum voluptate vitae deleniti nostrum.
-                <br />
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. In hic
-                corporis illo laudantium laboriosam iusto quas dolore reiciendis
-                dolorum consectetur delectus deserunt, modi molestiae! Id
-                voluptates, laudantium eos nulla est cumque rem?
-              </p>
-            </div>
-          </SliderItem>
+              <br />
+              He then says to you, ‘Do you want to pick gift No. 2 instead?’ Is
+              it to your advantage to switch your choice?
+            </p>
+          </div>
+          <div className="monty-hall-slider-description">
+            <h2>T H E    E X P E R I M E N T</h2>
+            <br />
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere
+              natus beatae saepe tenetur iste iusto laudantium architecto,
+              maiores qui quisquam excepturi quidem placeat labore veniam. At
+              blanditiis laborum excepturi adipisci.
+              <br />
+              <br />
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, a.
+              Ex perferendis temporibus, maxime at asperiores porro et tempora
+              omnis fugit necessitatibus, inventore repellat autem.
+            </p>
+          </div>
+          <div className="monty-hall-slider-description">
+            <h2>T H E    S O L U T I O N</h2>
+            <br />
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus,
+              tempora blanditiis esse explicabo dolores eum facere harum
+              pariatur officiis sint officia saepe tempore corporis.
+              <br />
+              <br />
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
+              ratione tenetur earum voluptate vitae deleniti nostrum.
+              <br />
+              <br />
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. In hic
+              corporis illo laudantium laboriosam iusto quas dolore reiciendis
+              dolorum consectetur delectus deserunt, modi molestiae! Id
+              voluptates, laudantium eos nulla est cumque rem?
+            </p>
+          </div>
         </Slider>
         <div className="monty-hall-interactive">
           <div className="monty-hall-interactive-scoreboard">
-            <Scoreboard
-              stickWins={this.stickWins}
-              switchWins={this.switchWins}
-              stickLosses={this.stickLosses}
-              switchLosses={this.switchLosses}
-            />
+            <Scoreboard wins={this.score[0]} losses={this.score[1]} />
           </div>
-          <div className="monty-hall-interactive-gifts">
+          <div className="monty-hall-interactive-doors">
             {this.displayDoorButtons()}
           </div>
           <div className="monty-hall-interactive-instructions">
@@ -246,27 +216,26 @@ export class MontyHall extends Component {
 
 const Scoreboard = props => (
   <div className="scoreboard">
-    <div className="scoreboard-heading">
-      <h2>Scoreboard</h2>
-    </div>
     <table className="scoreboard-table">
       <thead>
         <tr>
           <th />
-          <th>STICK</th>
-          <th>SWITCH</th>
+          <th>S T I C K</th>
+          <th>S W I T C H</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th>WINS</th>
-          <td>{props.stickWins}</td>
-          <td>{props.switchWins}</td>
+          <th>W I N S</th>
+          {props.wins.map(count => (
+            <td>{count}</td>
+          ))}
         </tr>
         <tr>
-          <th>LOSSES</th>
-          <td>{props.stickLosses}</td>
-          <td>{props.switchLosses}</td>
+          <th>L O S S E S</th>
+          {props.losses.map(count => (
+            <td>{count}</td>
+          ))}
         </tr>
       </tbody>
     </table>
@@ -276,7 +245,7 @@ const Scoreboard = props => (
 const DoorButton = props => (
   <button
     id={props.id}
-    className="door-button"
+    className="door-btn"
     onClick={props.handleClick}
     disabled={props.disabled}
   >
@@ -286,7 +255,9 @@ const DoorButton = props => (
 
 const Instruction = props => (
   <React.Fragment>
-    <div id="instruction-text">{props.text}</div>
+    <div id="instruction-text">
+      <h2>{props.text}</h2>
+    </div>
     {props.children}
   </React.Fragment>
 );
@@ -294,16 +265,25 @@ const Instruction = props => (
 const StickSwitch = props => (
   <React.Fragment>
     <RectangleButton
-      id="stick-switch-button"
+      id="stick-switch-btn"
       icon={<Secure />}
       text="S T I C K"
       handleClick={props.handleStickClick}
     />
     <RectangleButton
-      id="stick-switch-button"
+      id="stick-switch-btn"
       icon={<Shift />}
       text="S W I T C H"
       handleClick={props.handleSwitchClick}
     />
   </React.Fragment>
+);
+
+const PlayAgain = props => (
+  <RectangleButton
+    id="play-again-btn"
+    icon={<Refresh />}
+    text="P L A Y    A G A I N"
+    handleClick={props.handleClick}
+  />
 );

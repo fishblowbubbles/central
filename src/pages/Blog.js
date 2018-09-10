@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Template } from "../components/Template.js";
+import { Construction } from "../components/Error.js";
 
 export class Blog extends Component {
   render() {
     return (
-      <Template>
-        <div className="blog-container" />
-      </Template>
+      <div className="blog-container">
+        <Construction />
+      </div>
     );
   }
 }

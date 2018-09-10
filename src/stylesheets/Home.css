@@ -1,41 +1,45 @@
-.home-container {
+.home {
   background-color: white;
-  width: 100vw;
-  height: 100vh;
   display: grid;
-  grid-template-columns: 35% 65%;
-  align-items: center;
+  grid-template-areas:
+    "hero"
+    "doo-dad";
+  grid-template-rows: 100vh;
 }
-
-.left-subpanel {
+.home-hero {
+  grid-area: hero;
   background-color: whitesmoke;
-  height: 100%;
-  padding: 0 10%;
+  text-align: right;
   display: flex;
   flex-flow: column;
   justify-content: center;
 }
-
-.right-subpanel {
-  background-color: white;
-  padding: 15% 15% 15% 5%;
-}
-
-h1 {
-  text-align: right;
-}
-
-#blog-link {
-  color: gray;
-  text-align: right;
-  text-decoration: underline;
-  font-size: 6rem;
+.home-hero-text {
+  border-width: 0 0 1px 0;
+  border-color: lightgray;
+  border-style: solid;
+  white-space: pre;
   font-weight: bold;
+  font-size: 2rem;
+  margin: 5%;
+}
+.home-doo-dad {
+  grid-area: doo-dad;
+  align-self: center;
+}
+#blog-btn, #github-btn {
+  background-color: white;
+  border-width: 1px;
+  border-color: lightgray;
+  border-style: solid;
+  float: right;
+  margin: 0 5% 0 0;
 }
 
-#github-button {
-  max-width: 300px;
-  width: auto;
-  float: right;
-  margin-top: 5%;
+@media screen and (min-width: 1200px) {
+  .home {
+    height: 100vh;
+    grid-template-areas: "hero doo-dad";
+    grid-template-columns: 2fr 3fr;
+  }
 }

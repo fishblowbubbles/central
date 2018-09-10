@@ -2,59 +2,38 @@
   background: none;
   color: #333333;
   text-decoration: none;
-  font-family: "Fira Sans", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: normal;
   margin: 0;
   border: 0;
   padding: 0;
 }
-
 .app {
   background-color: black;
-  overflow-x: hidden;
+  width: 100vw;
 }
-
 .app-content {
-  transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-in-out;
 }
 .app-content#hide {
-  transform: translate(0, 0) scale(1, 1);
+  transform: translateY(0);
 }
 .app-content#show {
-  transform: translate(400px, 0) scale(0.8, 0.8);
+  transform: translateY(100vh);
 }
-
-#open-menu, #open-info {
+#menu-open {
   background: none;
   position: fixed;
   z-index: 2;
   top: 5%;
-}
-
-#open-menu {
   left: 5%;
 }
 
-#open-info {
-  right: 5%;
-}
-
-th,
-td {
-  text-align: center;
-}
-
-th {
-  font-weight: bold;
-}
-
-h1 {
-  font-size: 3rem;
-  font-weight: bold;
-}
-
-h2 {
-  text-decoration: underline;
-  font-size: 1.5rem;
-  font-weight: bold;
+@media screen and (min-width: 800px) {
+  .app-content#hide {
+    transform: translateX(0) scale(1, 1);
+  }
+  .app-content#show {
+    transform: translateX(400px) scale(0.8, 0.8);
+  }
 }

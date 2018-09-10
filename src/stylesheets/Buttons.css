@@ -1,10 +1,10 @@
 .btn {
+  white-space: pre;
   height: 48px;
   display: flex;
   align-items: center;
 }
 .btn:hover {
-  transform: scale(1.05, 1.05);
   cursor: pointer;
   color: black;
 }
@@ -16,4 +16,12 @@
   max-width: 192px;
   padding: 0 1em 0 1em;
   justify-content: center;
+}
+.btn-rectangle {
+  width: auto;
+  max-width: 280px;
+  padding: 0 1em 0 1em;
+}
+.btn-rectangle:hover {
+  transform: scale(1.05, 1.05);
 }

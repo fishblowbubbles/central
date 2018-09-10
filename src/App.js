@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import { Menu } from "grommet-icons";
+import { Github, Menu } from "grommet-icons";
 import { MenuPanel } from "./components/Menu.js";
-import { SquareButton } from "./components/Buttons.js";
+import { RectangleButton, SquareButton } from "./components/Buttons.js";
 import { Home } from "./pages/Home.js";
 import { About } from "./pages/About.js";
 import { Blog } from "./pages/Blog.js";
@@ -10,22 +10,13 @@ import { Projects } from "./pages/Projects.js";
 import { Contact } from "./pages/Contact.js";
 import "./stylesheets/App.css";
 
-const MenuConfig = [
-  [
-    { text: "Home", link: "/central" },
-    { text: "About", link: "/central/about" }
-  ],
-  [
-    { text: "Blog", link: "/central/blog" },
-    { text: "Projects", link: "/central/projects" }
-  ],
-  [{ text: "Contact", link: "/central/contact" }]
-];
-
 class App extends Component {
-  state = {
-    menuOpen: false
-  };
+  constructor() {
+    super();
+    this.state = {
+      menuOpen: false
+    };
+  }
 
   toggleMenu = () => {
     this.setState({
@@ -39,6 +30,7 @@ class App extends Component {
         <SquareButton
           id="menu-open"
           icon={<Menu />}
+          handleClick={this.toggleMenu}
         />
         <MenuPanel
           id={this.state.menuOpen ? "show" : "hide"}
@@ -58,5 +50,17 @@ class App extends Component {
     );
   }
 }
+
+const MenuConfig = [
+  [
+    { text: "H O M E", link: "/central" },
+    { text: "A B O U T", link: "/central/about" }
+  ],
+  [
+    { text: "B L O G", link: "/central/blog" },
+    { text: "P R O J E C T S", link: "/central/projects" }
+  ],
+  [{ text: "C O N T A C T", link: "/central/contact" }]
+];
 
 export default App;
