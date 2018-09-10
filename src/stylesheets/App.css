@@ -1,9 +1,9 @@
 * {
   background: none;
   color: #333333;
-  font-family: "Fira Sans", sans-serif;
   text-decoration: none;
-
+  font-family: "Fira Sans", sans-serif;
+  font-weight: normal;
   margin: 0;
   border: 0;
   padding: 0;
@@ -11,12 +11,50 @@
 
 .app {
   background-color: black;
+  overflow-x: hidden;
+}
+
+.app-content {
+  transition: transform 0.2s ease-out;
+}
+.app-content#hide {
+  transform: translate(0, 0) scale(1, 1);
+}
+.app-content#show {
+  transform: translate(400px, 0) scale(0.8, 0.8);
+}
+
+#open-menu, #open-info {
+  background: none;
+  position: fixed;
+  z-index: 2;
+  top: 5%;
 }
 
 #open-menu {
-  background: none;
-  position: fixed;
-  top: 5%;
   left: 5%;
-  z-index: 2;
+}
+
+#open-info {
+  right: 5%;
+}
+
+th,
+td {
+  text-align: center;
+}
+
+th {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+h2 {
+  text-decoration: underline;
+  font-size: 1.5rem;
+  font-weight: bold;
 }

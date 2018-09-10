@@ -1,18 +1,17 @@
 .monty-hall {
-  background-color: white;
   width: inherit;
   height: inherit;
   z-index: 1;
   display: grid;
   grid-template-areas: "heading heading" "slider interactive";
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 350px;
+  grid-template-rows: auto 400px;
 }
 
 .monty-hall-heading {
   text-align: center;
   font-family: "Yellowtail", cursive;
-  font-size: 2.5rem;
+  font-size: 3rem;
   border-width: 0 0 1px 0;
   border-color: lightgray;
   border-style: solid;
@@ -22,6 +21,9 @@
 
 #monty-hall-slider {
   grid-area: slider;
+  border-width: 0 1px 0 0;
+  border-color: lightgray;
+  border-style: solid;
 }
 
 .monty-hall-slider-description {
@@ -32,27 +34,37 @@
 }
 
 .monty-hall-interactive {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  justify-content: center;
   grid-area: interactive;
+  display: flex;
+  flex-flow: column;
 }
 
 .monty-hall-interactive-scoreboard {
-  position: relative;
+  display: flex;
 }
 
-.scoreboard, .scoreboard-table {
+.scoreboard,
+.scoreboard-table {
   width: 100%;
 }
 
+.scoreboard {
+  padding: 1em;
+  border-width: 0 0 1px 0;
+  border-color: lightgray;
+  border-style: solid;
+}
+
+.scoreboard-table {
+  padding-top: 1em;
+}
+
 .scoreboard-heading {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 2rem;
   text-align: center;
 }
 
 .monty-hall-interactive-gifts {
+  padding: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,29 +73,24 @@
 .monty-hall-interactive-instructions {
   display: grid;
   grid-template-rows: 1fr 1fr;
+  justify-content: center;
   align-items: center;
 }
 
-#stick-switch-button, #play-again-button {
+#stick-switch-button,
+#play-again-button {
   font-size: 1rem;
+  margin: 2.5%;
 }
 
 #instruction-text {
   text-align: center;
-  font-family: "Permanent Marker", cursive;
-  font-size: 1.5rem;
-}
-
-th, td {
-  text-align: center;
-  font-family: 'Permanent Marker', cursive;
-  border-width: 1px;
-  border-color: lightgray;
-  border-style: solid;
+  font-family: "Yellowtail", cursive;
+  font-size: 2.5rem;
 }
 
 h2 {
-  text-decoration: underline;
+  white-space: pre;
 }
 
 .door-button {
@@ -97,6 +104,7 @@ h2 {
 
 .door-button:hover {
   transform: scale(1.05, 1.05);
+  cursor: pointer;
 }
 
 .door-button[disabled] {

@@ -9,17 +9,15 @@ import "../stylesheets/Home.css";
 export class Home extends Component {
   render() {
     return (
-      <Template>
+      <Template menuOpen={this.props.menuOpen}>
         <div className="home-container">
           <div className="left-subpanel">
-            <h1>read the</h1>
+            <h1>visit the</h1>
             <Link id="blog-link" to="/central/blog">
               blog
             </Link>
             <h1>
-              or try this
-              <br />
-              doo-dad
+              or check out this doo-dad
             </h1>
             <a href="https://github.com/fishblowbubbles/central" target="_blank">
               <RectangleButton

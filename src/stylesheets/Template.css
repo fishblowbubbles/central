@@ -3,9 +3,9 @@
 }
 
 .template#hide {
-  transform: translateX(0) scale(1, 1);
+  transform: translate(0, 0) scale(1, 1);
 }
 
 .template#show {
-  transform: translateX(400px) scale(0.8, 0.8);
+  transform: translate(400px, 0) scale(0.8, 0.8);
 }

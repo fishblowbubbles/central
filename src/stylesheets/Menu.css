@@ -56,3 +56,41 @@
   align-items: center;
   justify-content: center;
 }
+.menu-panel {
+  width: 400px;
+  height: 100vh;
+  background-color: #333333;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-areas: 
+  "header" 
+  "navigation" 
+  "social";
+  grid-template-rows: 
+  56px
+  1fr
+  72px;
+}
+.menu-panel-navigation {
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+.menu-panel-navigation-section {
+  border-width: 0 0 1px 0;
+  border-color: lightgray;
+  border-style: solid;
+  padding: 1em 0 1em 0;
+}
+.menu-panel-social {
+  padding: 1em 0 1em 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

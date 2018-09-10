@@ -7,8 +7,8 @@ import "../stylesheets/MontyHall.css";
 export class MontyHall extends Component {
   selection = -1;
   doors = [0, 0, 0];
-  stickWin = 0;
-  switchWin = 0;
+  stickWins = 0;
+  switchWins = 0;
   stickLosses = 0;
   switchLosses = 0;
 
@@ -33,7 +33,7 @@ export class MontyHall extends Component {
   };
 
   handleSwitchClick = e => {
-    this.selection = this.switchPlayerSelection();
+    this.switchPlayerSelection();
     this.checkWin("switch");
   };
 
@@ -44,13 +44,6 @@ export class MontyHall extends Component {
     this.setState({
       stage: 0
     });
-  };
-
-  updateScoreboard = (stickWin, switchWin, stickLoss, switchLoss) => {
-    this.stickWin += stickWin;
-    this.switchWin += switchWin;
-    this.stickLosses += stickLoss;
-    this.switchLosses += switchLoss;
   };
 
   randomRange = (min, max) => {
@@ -69,6 +62,35 @@ export class MontyHall extends Component {
     this.doors[toOpen] = -1;
   };
 
+  switchPlayerSelection = () => {
+    for (let i = 0; i < this.doors.length; i++) {
+      if (this.doors[i] !== -1 && i !== this.selection) {
+        this.selection = i;
+        return;
+      }
+    }
+  };
+
+  checkWin = choice => {
+    if (this.doors[this.selection] === 1) {
+      if (choice === "stick") {
+        this.stickWins += 1;
+      } else if (choice === "switch") {
+        this.switchWins += 1;
+      }
+    } else {
+      if (choice === "stick") {
+        this.stickLosses += 1;
+      } else if (choice === "switch") {
+        this.switchLosses += 1;
+      }
+    }
+
+    this.setState({
+      stage: this.state.stage + 1
+    });
+  };
+
   getZeroPositions = () => {
     let zeroPositions = [];
     this.doors.forEach((item, index) => {
@@ -79,15 +101,7 @@ export class MontyHall extends Component {
     return zeroPositions;
   };
 
-  switchPlayerSelection = () => {
-    for (let i = 0; i < this.doors.length; i++) {
-      if (this.doors[i] !== -1 && i !== this.selection) {
-        return i;
-      }
-    }
-  };
-
-  getDoorButtons = () => {
+  displayDoorButtons = () => {
     return this.doors.map((status, index) => {
       let icon = <Gift />;
       if (this.state.stage === 2) {
@@ -114,7 +128,7 @@ export class MontyHall extends Component {
     });
   };
 
-  getCurrentInstruction = () => {
+  displayCurrentInstruction = () => {
     if (this.state.stage === 0) {
       return <Instruction text="Select a gift!" />;
     } else if (this.state.stage === 1) {
@@ -145,31 +159,7 @@ export class MontyHall extends Component {
     }
   };
 
-  checkWin = choice => {
-    if (this.doors[this.selection] === 1) {
-      if (choice === "stick") {
-        this.updateScoreboard(1, 0, 0, 0);
-      } else if (choice === "switch") {
-        this.updateScoreboard(0, 1, 0, 0);
-      }
-    } else {
-      if (choice === "stick") {
-        this.updateScoreboard(0, 0, 1, 0);
-      } else if (choice === "switch") {
-        this.updateScoreboard(0, 0, 0, 1);
-      }
-    }
-
-    this.setState({
-      stage: this.state.stage + 1
-    });
-  };
-
   render() {
-    console.log(`Doors: ${this.doors}`);
-    console.log(`Selection: ${this.selection}`);
-    console.log(`Stage: ${this.state.stage}`);
-
     return (
       <div className="monty-hall">
         <div className="monty-hall-heading">Monty Hall Simulator</div>
@@ -194,23 +184,59 @@ export class MontyHall extends Component {
               </p>
             </div>
           </SliderItem>
-          <SliderItem />
-          <SliderItem />
+          <SliderItem>
+            <div className="monty-hall-slider-description">
+              <h2>The Experiment</h2>
+              <br />
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere
+                natus beatae saepe tenetur iste iusto laudantium architecto,
+                maiores qui quisquam excepturi quidem placeat labore veniam. At
+                blanditiis laborum excepturi adipisci.
+                <br />
+                <br />
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, a.
+                Ex perferendis temporibus, maxime at asperiores porro et tempora
+                omnis fugit necessitatibus, inventore repellat autem.
+              </p>
+            </div>
+          </SliderItem>
+          <SliderItem>
+            <div className="monty-hall-slider-description">
+              <h2>The Solution</h2>
+              <br />
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Ducimus, tempora blanditiis esse explicabo dolores eum facere
+                harum pariatur officiis sint officia saepe tempore corporis.
+                <br />
+                <br />
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
+                ratione tenetur earum voluptate vitae deleniti nostrum.
+                <br />
+                <br />
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In hic
+                corporis illo laudantium laboriosam iusto quas dolore reiciendis
+                dolorum consectetur delectus deserunt, modi molestiae! Id
+                voluptates, laudantium eos nulla est cumque rem?
+              </p>
+            </div>
+          </SliderItem>
         </Slider>
         <div className="monty-hall-interactive">
-          <div className="monty-hall-scoreboard">
+          <div className="monty-hall-interactive-scoreboard">
             <Scoreboard
-              stickWin={this.stickWin}
-              switchWin={this.switchWin}
+              stickWins={this.stickWins}
+              switchWins={this.switchWins}
               stickLosses={this.stickLosses}
               switchLosses={this.switchLosses}
             />
           </div>
           <div className="monty-hall-interactive-gifts">
-            {this.getDoorButtons()}
+            {this.displayDoorButtons()}
           </div>
           <div className="monty-hall-interactive-instructions">
-            {this.getCurrentInstruction()}
+            {this.displayCurrentInstruction()}
           </div>
         </div>
       </div>
@@ -220,23 +246,25 @@ export class MontyHall extends Component {
 
 const Scoreboard = props => (
   <div className="scoreboard">
-    <div className="scoreboard-heading">Scoreboard</div>
+    <div className="scoreboard-heading">
+      <h2>Scoreboard</h2>
+    </div>
     <table className="scoreboard-table">
       <thead>
         <tr>
           <th />
-          <th>Stick</th>
-          <th>Switch</th>
+          <th>STICK</th>
+          <th>SWITCH</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th>Wins</th>
-          <td>{props.stickWin}</td>
-          <td>{props.switchWin}</td>
+          <th>WINS</th>
+          <td>{props.stickWins}</td>
+          <td>{props.switchWins}</td>
         </tr>
         <tr>
-          <th>Losses</th>
+          <th>LOSSES</th>
           <td>{props.stickLosses}</td>
           <td>{props.switchLosses}</td>
         </tr>

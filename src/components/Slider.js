@@ -90,7 +90,7 @@ export class Slider extends Component {
 }
 
 export const SliderItem = props => (
-  <div id={props.id} className="slider-item">
+  <div {...props} className="slider-item">
     {props.children}
   </div>
 );

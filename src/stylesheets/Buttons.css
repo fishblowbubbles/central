@@ -1,53 +1,19 @@
-.button-defaults {
-  background-color: white;
-  white-space: pre;
-  color: gray;
-  display: flex;
-  align-items: center;
-}
-
-.square-button {
-  background: none;
-  color: gray;
-  display: flex;
-  align-items: center;
-  width: 48px;
+.btn {
   height: 48px;
-  justify-content: center;
+  display: flex;
+  align-items: center;
 }
-
-.square-button:hover {
+.btn:hover {
   transform: scale(1.05, 1.05);
   cursor: pointer;
+  color: black;
 }
-
-.panel-button {
-  background: none;
-  color: gray;
-  display: flex;
-  align-items: center;
+.btn-square {
+  width: 48px;
+  justify-content: center;
+}
+.btn-panel {
+  max-width: 192px;
   padding: 0 1em 0 1em;
   justify-content: center;
-}
-
-.panel-button:hover {
-  cursor: pointer;
-}
-
-.rectangle-button {
-  background-color: white;
-  font-weight: bold;
-  border-width: 1px;
-  border-color: lightgray;
-  border-style: solid;
-  color: gray;
-  width: auto;
-  display: flex;
-  align-items: center;
-  height: 48px;
-}
-
-.rectangle-button:hover {
-  transform: scale(1.05, 1.05);
-  cursor: pointer;
 }

@@ -4,12 +4,25 @@ import { Menu } from "grommet-icons";
 import { MenuPanel } from "./components/Menu.js";
 import { SquareButton } from "./components/Buttons.js";
 import { Home } from "./pages/Home.js";
+import { About } from "./pages/About.js";
 import { Blog } from "./pages/Blog.js";
+import { Projects } from "./pages/Projects.js";
+import { Contact } from "./pages/Contact.js";
 import "./stylesheets/App.css";
 
-export const MenuContext = React.createContext();
+const MenuConfig = [
+  [
+    { text: "Home", link: "/central" },
+    { text: "About", link: "/central/about" }
+  ],
+  [
+    { text: "Blog", link: "/central/blog" },
+    { text: "Projects", link: "/central/projects" }
+  ],
+  [{ text: "Contact", link: "/central/contact" }]
+];
 
-export default class App extends Component {
+class App extends Component {
   state = {
     menuOpen: false
   };
@@ -21,26 +34,29 @@ export default class App extends Component {
   };
 
   render() {
-    const value = {
-      state: this.state,
-      toggleMenu: this.toggleMenu
-    };
-
     return (
       <div className="app">
         <SquareButton
-          id="open-menu"
+          id="menu-open"
           icon={<Menu />}
+        />
+        <MenuPanel
+          id={this.state.menuOpen ? "show" : "hide"}
+          config={MenuConfig}
           handleClick={this.toggleMenu}
         />
-        <MenuContext.Provider value={value}>
-          <MenuPanel id={this.state.menuOpen ? "show" : "hide"} />
+        <div id={this.state.menuOpen ? "show" : "hide"} className="app-content">
           <Switch>
             <Route exact path="/central" component={Home} />
+            <Route exact path="/central/about" component={About} />
             <Route exact path="/central/blog" component={Blog} />
+            <Route exact path="/central/projects" component={Projects} />
+            <Route exact path="/central/contact" component={Contact} />
           </Switch>
-        </MenuContext.Provider>
+        </div>
       </div>
     );
   }
 }
+
+export default App;
