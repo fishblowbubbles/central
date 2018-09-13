@@ -117,7 +117,7 @@ export class MontyHall extends Component {
 
   displayCurrentInstruction = () => {
     if (this.state.stage === 0) {
-      return <Instruction text="P I C K    A    G I F T" />;
+      return <Instruction text="P I C K    A    D O O R" />;
     } else if (this.state.stage === 1) {
       return (
         <StickSwitch
