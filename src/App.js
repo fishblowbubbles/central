@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import { Github, Menu } from "grommet-icons";
+import { Menu } from "grommet-icons";
 import { MenuPanel } from "./components/Menu.js";
-import { RectangleButton, SquareButton } from "./components/Buttons.js";
+import { SquareButton } from "./components/Buttons.js";
 import { Home } from "./pages/Home.js";
 import { About } from "./pages/About.js";
 import { Blog } from "./pages/Blog.js";

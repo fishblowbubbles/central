@@ -21,19 +21,21 @@
   white-space: pre;
   font-weight: bold;
   font-size: 2rem;
-  margin: 5%;
+  margin: 0 5% 0 5%;
+  padding: 5%;
 }
 .home-doo-dad {
   grid-area: doo-dad;
   align-self: center;
 }
+
 #blog-btn, #github-btn {
   background-color: white;
   border-width: 1px;
   border-color: lightgray;
   border-style: solid;
   float: right;
-  margin: 0 5% 0 0;
+  margin: 5% 5% 0 0;
 }
 
 @media screen and (min-width: 1200px) {

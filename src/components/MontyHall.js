@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Diamond, Gift, Gremlin, Refresh, Secure, Shift } from "grommet-icons";
+import { Diamond, Gremlin, Help, Refresh, Secure, Shift } from "grommet-icons";
 import { RectangleButton } from "./Buttons.js";
 import { Slider } from "./Slider.js";
 import "../stylesheets/MontyHall.css";
@@ -21,7 +21,7 @@ export class MontyHall extends Component {
 
   handleSelectClick = index => {
     this.selection = index;
-    this.openGremlinGift();
+    this.openGremlinDoor();
     this.setState({
       stage: this.state.stage + 1
     });
@@ -54,7 +54,7 @@ export class MontyHall extends Component {
     this.doors[prizePosition] = 1;
   };
 
-  openGremlinGift = () => {
+  openGremlinDoor = () => {
     let gremlinPositions = this.getGremlinPositions();
     let hostSelection = this.randomRange(0, gremlinPositions.length);
     let toOpen = gremlinPositions[hostSelection];
@@ -89,11 +89,11 @@ export class MontyHall extends Component {
   };
 
   getDoorIcon = value => {
-    let icon = <Gift />;
+    let icon = <Help />;
     if (value === -1) {
       icon = <Gremlin />;
     } else if (this.state.stage === 2) {
-      // reveal gifts
+      // reveal doors
       if (value === 0) {
         icon = <Gremlin />;
       } else if (value === 1) {
@@ -129,11 +129,11 @@ export class MontyHall extends Component {
       return (
         <React.Fragment>
           {this.doors[this.selection] === 1 ? (
-            <Instruction text="W E L L    D O N E  !">
+            <Instruction text="W E L L    D O N E !">
               <PlayAgain handleClick={this.handlePlayAgainClick} />
             </Instruction>
           ) : (
-            <Instruction text="U G H ,    G R E M L I N  !">
+            <Instruction text="U G H ,    G R E M L I N !">
               <PlayAgain handleClick={this.handlePlayAgainClick} />
             </Instruction>
           )}
@@ -148,23 +148,23 @@ export class MontyHall extends Component {
         <div className="monty-hall-heading">Monty Hall Simulator</div>
         <Slider id="monty-hall-slider">
           <div className="monty-hall-slider-description">
-            <h2>T H E    P R O B L E M</h2>
+            <h2>T H E P R O B L E M</h2>
             <br />
             <p>
               Suppose you're on a game show, and you're given the choice of
-              three gifts: inside one is a diamond; behind the others, gremlins.
+              three doors: behind one is a diamond; behind the others, gremlins.
               <br />
               <br />
-              You pick a gift, say No. 1, and the host, who knows what's inside
-              the gifts, opens another gift, say No. 3, which has a gremlin.
+              You pick a door, say No. 1, and the host, who knows what's behind
+              the doors, opens another door, say No. 3, which has a gremlin.
               <br />
               <br />
-              He then says to you, ‘Do you want to pick gift No. 2 instead?’ Is
+              He then says to you, ‘Do you want to pick door No. 2 instead?’ Is
               it to your advantage to switch your choice?
             </p>
           </div>
           <div className="monty-hall-slider-description">
-            <h2>T H E    E X P E R I M E N T</h2>
+            <h2>T H E E X P E R I M E N T</h2>
             <br />
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere
@@ -179,7 +179,7 @@ export class MontyHall extends Component {
             </p>
           </div>
           <div className="monty-hall-slider-description">
-            <h2>T H E    S O L U T I O N</h2>
+            <h2>T H E S O L U T I O N</h2>
             <br />
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus,

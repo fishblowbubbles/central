@@ -25,6 +25,7 @@
   height: 90%;
   padding: 5%;
 }
+
 #next-arrow {
   grid-area: next-arrow;
 }

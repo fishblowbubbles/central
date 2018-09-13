@@ -1,9 +1,9 @@
 .under-construction {
   background-color: white;
   color: gray;
+  text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
-  text-align: center;
   width: 100vw;
   height: 100vh;
   display: flex;

@@ -8,6 +8,7 @@
   border: 0;
   padding: 0;
 }
+
 .app {
   background-color: black;
   width: 100vw;
@@ -21,6 +22,7 @@
 .app-content#show {
   transform: translateY(100vh);
 }
+
 #menu-open {
   background: none;
   position: fixed;
