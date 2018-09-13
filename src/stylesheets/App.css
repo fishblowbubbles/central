@@ -2,7 +2,7 @@
   background: none;
   color: #333333;
   text-decoration: none;
-  font-family: "Raleway", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-weight: normal;
   margin: 0;
   border: 0;
@@ -12,15 +12,16 @@
 .app {
   background-color: black;
   width: 100vw;
+  overflow-x: hidden;
 }
 .app-content {
   transition: transform 0.2s ease-in-out;
 }
 .app-content#hide {
-  transform: translateY(0);
+  transform: translateX(0);
 }
 .app-content#show {
-  transform: translateY(100vh);
+  transform: translateX(400px);
 }
 
 #menu-open {

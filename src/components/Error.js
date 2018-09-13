@@ -7,6 +7,6 @@ export const Construction = () => (
     <Paint id="paint-bucket" />
     Sorry, this page isn't ready yet.
     <br />
-    Try again next time!
+    Come back next time!
   </div>
 );

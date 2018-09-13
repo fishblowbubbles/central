@@ -19,10 +19,10 @@
   transition: transform 0.2s ease-in-out;
 }
 .menu-panel#hide {
-  transform: translateY(-100vh);
+  transform: translateX(-100vw);
 }
 .menu-panel#show {
-  transform: translateY(0);
+  transform: translateX(0);
 }
 .menu-panel-header {
   grid-area: header;
@@ -64,11 +64,5 @@
 @media screen and (min-width: 800px) {
   .menu-panel {
     width: 400px;
-  }
-  .menu-panel#hide {
-    transform: translateX(-100vw);
-  }
-  .menu-panel#show {
-    transform: translateX(0);
   }
 }

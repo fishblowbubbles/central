@@ -25,6 +25,7 @@
   border-width: 0 0 1px 0;
   border-color: lightgray;
   border-style: solid;
+  height: 400px;
 }
 .monty-hall-interactive {
   grid-area: interactive;

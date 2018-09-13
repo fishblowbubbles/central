@@ -8,10 +8,10 @@
     auto;
 }
 .slider-navigation {
-  padding: 5%;
   display: grid;
   grid-template-areas: "prev-arrow indicator next-arrow";
   grid-template-columns: 50px 1fr 50px;
+  padding: 5%;
 }
 .slider-navigation-indicator {
   grid-area: indicator;
@@ -21,9 +21,8 @@
   justify-content: center;
 }
 .slider-content {
-  width: 90%;
-  height: 90%;
   padding: 5%;
+  overflow-y: auto;
 }
 
 #next-arrow {

@@ -117,7 +117,7 @@ export class MontyHall extends Component {
 
   displayCurrentInstruction = () => {
     if (this.state.stage === 0) {
-      return <Instruction text="P I C K    A    G I F T  !" />;
+      return <Instruction text="P I C K    A    G I F T" />;
     } else if (this.state.stage === 1) {
       return (
         <StickSwitch
@@ -129,11 +129,11 @@ export class MontyHall extends Component {
       return (
         <React.Fragment>
           {this.doors[this.selection] === 1 ? (
-            <Instruction text="W E L L    D O N E !">
+            <Instruction text="W E L L    D O N E  !">
               <PlayAgain handleClick={this.handlePlayAgainClick} />
             </Instruction>
           ) : (
-            <Instruction text="U G H ,    G R E M L I N !">
+            <Instruction text="U G H ,    G R E M L I N  !">
               <PlayAgain handleClick={this.handlePlayAgainClick} />
             </Instruction>
           )}
@@ -148,7 +148,7 @@ export class MontyHall extends Component {
         <div className="monty-hall-heading">Monty Hall Simulator</div>
         <Slider id="monty-hall-slider">
           <div className="monty-hall-slider-description">
-            <h2>T H E P R O B L E M</h2>
+            <h2>{"T H E    P R O B L E M"}</h2>
             <br />
             <p>
               Suppose you're on a game show, and you're given the choice of
@@ -164,37 +164,33 @@ export class MontyHall extends Component {
             </p>
           </div>
           <div className="monty-hall-slider-description">
-            <h2>T H E E X P E R I M E N T</h2>
+            <h2>{"T H E    E X P E R I M E N T"}</h2>
             <br />
             <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere
-              natus beatae saepe tenetur iste iusto laudantium architecto,
-              maiores qui quisquam excepturi quidem placeat labore veniam. At
-              blanditiis laborum excepturi adipisci.
-              <br />
-              <br />
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, a.
-              Ex perferendis temporibus, maxime at asperiores porro et tempora
-              omnis fugit necessitatibus, inventore repellat autem.
+              Play the game several times, alternating between sticking and
+              switching. Look at the scoreboard - do you notice a trend? (The
+              greater the number of trials, the more obvious it will be.)
             </p>
           </div>
           <div className="monty-hall-slider-description">
-            <h2>T H E S O L U T I O N</h2>
+            <h2>{"T H E    S O L U T I O N"}</h2>
             <br />
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus,
-              tempora blanditiis esse explicabo dolores eum facere harum
-              pariatur officiis sint officia saepe tempore corporis.
+              Switching doubles your chance of winning. The host is the
+              difference maker here - it (in this case, the computer) knows
+              where prize is, and your initial choice determines which door it
+              reveals to you.
               <br />
               <br />
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
-              ratione tenetur earum voluptate vitae deleniti nostrum.
+              Another explanation is this: at the start, the door that you pick
+              has a 1/3 chance of containing the diamond; the other 2 doors will
+              have a combined chance of 2/3.
               <br />
               <br />
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. In hic
-              corporis illo laudantium laboriosam iusto quas dolore reiciendis
-              dolorum consectetur delectus deserunt, modi molestiae! Id
-              voluptates, laudantium eos nulla est cumque rem?
+              However, once the host opens a door with the gremlin, its
+              probability is now 0, but the combined probability does not
+              change. The remaining door, which you did not choose, now has a
+              probability of 2/3 - thus, always switch!
             </p>
           </div>
         </Slider>
