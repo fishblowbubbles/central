@@ -1,9 +1,6 @@
 .under-construction {
   background-color: white;
-  color: gray;
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -11,6 +8,7 @@
   justify-content: center;
   align-items: center;
 }
+
 #paint-bucket {
   width: 20%;
   height: 20%;

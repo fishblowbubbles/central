@@ -17,7 +17,7 @@ export class MontyHall extends Component {
     this.setPrizePosition();
   }
 
-  handleSelectClick = index => {
+  handleDoorClick = (e, index) => {
     this.selection = index;
     this.openGremlinDoor();
     this.setState({
@@ -61,8 +61,8 @@ export class MontyHall extends Component {
   };
 
   /**
-   * From the unselected doors, randomly choose one that
-   * does not contain the prize.
+   * From the unselected doors, randomly choose and reveal
+   * one that contains a gremlin.
    */
   openGremlinDoor = () => {
     let gremlinPositions = this.getGremlinPositions();
@@ -118,7 +118,7 @@ export class MontyHall extends Component {
     let icon = <Help />;
     if (value === -1) {
       icon = <Gremlin />;
-    // reveal doors
+      // reveal doors
     } else if (this.state.stage === 2) {
       if (value === 0) {
         icon = <Gremlin />;
@@ -135,7 +135,7 @@ export class MontyHall extends Component {
         id={index === this.selection ? "highlight" : ""}
         icon={this.whichIcon(value)}
         stage={this.state.stage}
-        handleClick={() => this.handleSelectClick(index)}
+        handleClick={e => this.handleDoorClick(e, index)}
         disabled={this.state.stage !== 0}
       />
     ));
@@ -143,7 +143,7 @@ export class MontyHall extends Component {
 
   displayCurrentInstruction = () => {
     if (this.state.stage === 0) {
-      return <Instruction text="P I C K    A    D O O R" />;
+      return <h2>{"P I C K    A    D O O R"}</h2>;
     } else if (this.state.stage === 1) {
       return (
         <StickSwitch
@@ -156,12 +156,12 @@ export class MontyHall extends Component {
         <React.Fragment>
           {this.doors[this.selection] === 1 ? (
             <React.Fragment>
-              <Instruction text="W E L L    D O N E  !" />
+              <h2>{"W E L L    D O N E  !"}</h2>
               <PlayAgain handleClick={this.handlePlayAgainClick} />
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <Instruction text="U G H ,    G R E M L I N  !" />
+              <h2>{"U G H ,    G R E M L I N  !"}</h2>
               <PlayAgain handleClick={this.handlePlayAgainClick} />
             </React.Fragment>
           )}
@@ -279,12 +279,6 @@ const DoorButton = props => (
   >
     {props.icon}
   </button>
-);
-
-const Instruction = props => (
-  <div className="instruction">
-    <h2>{props.text}</h2>
-  </div>
 );
 
 const StickSwitch = props => (

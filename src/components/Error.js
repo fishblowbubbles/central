@@ -5,8 +5,10 @@ import "../stylesheets/Error.css";
 export const Construction = () => (
   <div className="under-construction">
     <Paint id="paint-bucket" />
-    Sorry, this page isn't ready yet.
-    <br />
-    Come back next time!
+    <h2>
+      Sorry, this page isn't ready yet.
+      <br />
+      Come back next time!
+    </h2>
   </div>
 );

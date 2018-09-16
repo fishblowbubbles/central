@@ -12,16 +12,20 @@
   grid-template-rows: 72px 1fr auto;
   transition: transform 0.2s ease-in-out;
 }
+
 .menu-panel#hide {
   transform: translateX(-100vw);
 }
+
 .menu-panel#show {
   transform: translateX(0);
 }
+
 .menu-panel-header {
   grid-area: header;
   padding: 5%;
 }
+
 .menu-panel-navigation {
   grid-area: navigation;
   overflow-x: hidden;
@@ -30,12 +34,14 @@
   flex-flow: column;
   align-items: center;
 }
+
 .menu-panel-navigation-section {
   border-width: 0 0 1px 0;
   border-color: lightgray;
   border-style: solid;
   padding: 1em 0;
 }
+
 .menu-panel-social {
   grid-area: social;
   padding: 5%;
@@ -43,16 +49,20 @@
   align-items: center;
   justify-content: center;
 }
+
 #menu-close {
   float: right;
 }
+
 #menu-link {
   color: lightgray;
   font-size: 1rem;
 }
+
 #menu-link:hover {
   color: white;
 }
+
 @media screen and (min-width: 800px) {
   .menu-panel {
     width: 400px;

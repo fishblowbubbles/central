@@ -9,13 +9,6 @@ export class Blog extends Component {
     postOpen: false
   };
 
-  handleCenterClick = e => {
-    console.log("click!");
-    if (this.state.postOpen) {
-      this.togglePost();
-    }
-  };
-
   togglePost = () => {
     this.setState({
       postOpen: !this.state.postOpen
@@ -24,20 +17,32 @@ export class Blog extends Component {
 
   displayCategories = () => <div />;
 
+  displayToggleButton = () =>
+    this.state.postOpen ? (
+      <SquareButton
+        id="posts-close"
+        icon={<FormNext />}
+        handleClick={this.togglePost}
+      />
+    ) : (
+      <RectangleButton
+        id="posts-open"
+        icon={<Book />}
+        text="R E A D"
+        handleClick={this.togglePost}
+      />
+    );
+
   render() {
     return (
       <div className="blog">
         <div
           id={this.state.postOpen ? "show" : "hide"}
-          className="blog-navigation-panel"
+          className="blog-navigation"
         />
-        <div
-          id={this.state.postOpen ? "show" : "hide"}
-          className="blog-center-panel"
-          onClick={this.handleCenterClick}
-        >
-          <div className="blog-center-panel-background" />
-          <div className="blog-center-panel-content">
+        <div id={this.state.postOpen ? "show" : "hide"} className="blog-center">
+          <div className="blog-center-background" />
+          <div className="blog-center-content">
             <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit</h1>
             <br />
             <p>
@@ -47,24 +52,8 @@ export class Blog extends Component {
             </p>
           </div>
         </div>
-        <div
-          id={this.state.postOpen ? "show" : "hide"}
-          className="blog-post-panel"
-        >
-          {this.state.postOpen ? (
-            <SquareButton
-              id="post-close"
-              icon={<FormNext />}
-              handleClick={this.togglePost}
-            />
-          ) : (
-            <RectangleButton
-              id="post-open"
-              icon={<Book />}
-              text="R E A D"
-              handleClick={this.togglePost}
-            />
-          )}
+        <div id={this.state.postOpen ? "show" : "hide"} className="blog-posts">
+          {this.displayToggleButton()}
         </div>
       </div>
     );

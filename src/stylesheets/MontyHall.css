@@ -4,6 +4,7 @@
   grid-template-areas: "heading" "slider" "interactive";
   grid-template-rows: auto auto auto;
 }
+
 .monty-hall-heading {
   grid-area: heading;
   text-align: center;
@@ -16,6 +17,7 @@
   align-items: center;
   justify-content: center;
 }
+
 #monty-hall-slider {
   grid-area: slider;
   text-align: justify;
@@ -24,50 +26,57 @@
   border-style: solid;
   height: 350px;
 }
+
 .monty-hall-interactive {
   grid-area: interactive;
   display: grid;
   grid-template-areas: "scoreboard" "doors" "instructions";
   grid-template-rows: 96px 120px 132px;
 }
+
 .monty-hall-interactive-doors {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
+
 .monty-hall-interactive-instructions {
   display: grid;
   grid-template-rows: 1fr 1fr;
   align-items: center;
   justify-content: center;
 }
+
 .scoreboard {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
 }
+
 .scoreboard-table {
   width: 90%;
   max-height: 90%;
 }
+
 .door-btn {
   margin: 1em;
 }
+
 .door-btn#highlight {
   border-color: black;
 }
+
 .door-btn:hover {
   transform: scale(1.05, 1.05);
   cursor: pointer;
 }
+
 .door-btn[disabled] {
   background-color: whitesmoke;
   transform: scale(1, 1);
   cursor: auto;
 }
-.instruction > h2 {
-  text-align: center;
-}
+
 .door-btn,
 #stick-switch-btn,
 #play-again-btn {
@@ -75,10 +84,12 @@
   border-color: lightgray;
   border-style: solid;
 }
+
 #stick-switch-btn {
   width: 140px;
   margin: 2.5%;
 }
+
 th,
 td {
   text-align: center;
@@ -90,15 +101,18 @@ h2 {
   font-weight: bold;
   white-space: pre;
 }
+
 @media screen and (min-width: 800px) {
   .monty-hall {
     grid-template-areas: "heading heading" "slider interactive";
     grid-template-rows: auto 1fr;
     grid-template-columns: 1fr 1fr;
   }
+
   #monty-hall-slider {
     border-width: 0 1px 0 0;
   }
+  
   .scoreboard {
     border-width: 0 0 1px 0;
     border-color: lightgray;
