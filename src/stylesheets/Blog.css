@@ -1,0 +1,113 @@
+.blog {
+  display: grid;
+  grid-template-areas: "nav center content";
+  grid-template-rows: 100vh;
+  grid-template-columns: auto auto 75vw;
+}
+
+.blog-navigation-panel {
+  grid-area: nav;
+  background-color: whitesmoke;
+  transition: width 0.8s ease-in-out;
+}
+
+.blog-navigation-panel#hide {
+  width: 20vw;
+}
+
+.blog-navigation-panel#show {
+  width: 0vw;
+}
+
+.blog-center-panel {
+  grid-area: center;
+  position: relative;
+  display: grid;
+  align-items: center;
+  transition: width 0.8s ease-in-out;
+}
+
+.blog-center-panel-background {
+  background-image: url("/assets/hkust.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.blog-center-panel-background::after {
+  background-color: black;
+  opacity: 0.4;
+  content: "";
+
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+}
+
+.blog-center-panel#hide {
+  width: 80vw;
+}
+
+.blog-center-panel#show {
+  width: 35vw;
+}
+
+.blog-center-panel-content {
+  max-width: 40vw;
+  padding: 10%;
+  z-index: 1;
+  display: grid;
+  align-items: flex-end;
+  grid-template-columns: 1fr;
+  animation: fade 1s;
+}
+
+.blog-center-panel-content > h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.blog-center-panel-content > h1,
+.blog-center-panel-content > p {
+  color: white;
+}
+
+.blog-post-panel {
+  grid-area: content;
+  background-color: white;
+  width: 75vw;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+#post-open {
+  background-color: white;
+  width: 176px;
+  position: absolute;
+  left: -176px;
+  bottom: 48px;
+}
+
+#post-close {
+  background-color: white;
+  position: absolute;
+  left: -48px;
+  bottom: 48px;
+}
+
+@keyframes fade {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}

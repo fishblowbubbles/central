@@ -22,7 +22,7 @@
   border-width: 0 0 1px 0;
   border-color: lightgray;
   border-style: solid;
-  height: 400px;
+  height: 350px;
 }
 .monty-hall-interactive {
   grid-area: interactive;
@@ -65,7 +65,7 @@
   transform: scale(1, 1);
   cursor: auto;
 }
-#instruction-text {
+.instruction > h2 {
   text-align: center;
 }
 .door-btn,

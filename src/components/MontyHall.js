@@ -5,15 +5,13 @@ import { Slider } from "./Slider.js";
 import "../stylesheets/MontyHall.css";
 
 export class MontyHall extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      stage: 0
-    };
-    this.score = [[0, 0], [0, 0]];
-    this.doors = [0, 0, 0];
-    this.selection = -1;
-  }
+  score = [[0, 0], [0, 0]];
+  doors = [0, 0, 0];
+  selection = -1;
+
+  state = {
+    stage: 0
+  };
 
   componentDidMount() {
     this.setPrizePosition();
@@ -32,28 +30,40 @@ export class MontyHall extends Component {
   };
 
   handleSwitchClick = e => {
-    this.selection = this.switchPlayerSelection();
+    this.switchPlayerSelection();
     this.updateScore("switch");
   };
 
   handlePlayAgainClick = e => {
     this.doors = [0, 0, 0];
     this.selection = -1;
+
     this.setPrizePosition();
     this.setState({
       stage: 0
     });
   };
 
+  /**
+   * Genereates a random integer between min (inclusive)
+   * and max (exlusive).
+   */
   randomRange = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
+  /**
+   * Picks a random door, and assigns the prize to it.
+   */
   setPrizePosition = () => {
     let prizePosition = this.randomRange(0, this.doors.length);
     this.doors[prizePosition] = 1;
   };
 
+  /**
+   * From the unselected doors, randomly choose one that
+   * does not contain the prize.
+   */
   openGremlinDoor = () => {
     let gremlinPositions = this.getGremlinPositions();
     let hostSelection = this.randomRange(0, gremlinPositions.length);
@@ -61,23 +71,39 @@ export class MontyHall extends Component {
     this.doors[toOpen] = -1;
   };
 
+  /**
+   * Changes the player's selection to the unselected door
+   * (there should only be one).
+   */
   switchPlayerSelection = () => {
     for (let i = 0; i < this.doors.length; i++) {
       if (this.doors[i] !== -1 && i !== this.selection) {
-        return i;
+        this.selection = i;
+        return;
       }
     }
   };
 
+  /**
+   * Checks if the player has won the prize, and updates
+   * the score according to the decision (stick or switch)
+   * that was made.
+   */
   updateScore = choice => {
     let i = this.doors[this.selection] === 1 ? 0 : 1;
     let j = choice === "stick" ? 0 : 1;
+
     this.score[i][j] += 1;
     this.setState({
       stage: this.state.stage + 1
     });
   };
 
+  /**
+   * Iterates through the doors list and extracts the
+   * positions of those that contain a gremlin and is
+   * not currently selected by the player
+   */
   getGremlinPositions = () => {
     let gremlinPositions = [];
     for (let i = 0; i < this.doors.length; i++) {
@@ -88,12 +114,12 @@ export class MontyHall extends Component {
     return gremlinPositions;
   };
 
-  getDoorIcon = value => {
+  whichIcon = value => {
     let icon = <Help />;
     if (value === -1) {
       icon = <Gremlin />;
+    // reveal doors
     } else if (this.state.stage === 2) {
-      // reveal doors
       if (value === 0) {
         icon = <Gremlin />;
       } else if (value === 1) {
@@ -107,7 +133,7 @@ export class MontyHall extends Component {
     return this.doors.map((value, index) => (
       <DoorButton
         id={index === this.selection ? "highlight" : ""}
-        icon={this.getDoorIcon(value)}
+        icon={this.whichIcon(value)}
         stage={this.state.stage}
         handleClick={() => this.handleSelectClick(index)}
         disabled={this.state.stage !== 0}
@@ -129,13 +155,15 @@ export class MontyHall extends Component {
       return (
         <React.Fragment>
           {this.doors[this.selection] === 1 ? (
-            <Instruction text="W E L L    D O N E  !">
+            <React.Fragment>
+              <Instruction text="W E L L    D O N E  !" />
               <PlayAgain handleClick={this.handlePlayAgainClick} />
-            </Instruction>
+            </React.Fragment>
           ) : (
-            <Instruction text="U G H ,    G R E M L I N  !">
+            <React.Fragment>
+              <Instruction text="U G H ,    G R E M L I N  !" />
               <PlayAgain handleClick={this.handlePlayAgainClick} />
-            </Instruction>
+            </React.Fragment>
           )}
         </React.Fragment>
       );
@@ -168,8 +196,12 @@ export class MontyHall extends Component {
             <br />
             <p>
               Play the game several times, alternating between sticking and
-              switching. Look at the scoreboard - do you notice a trend? (The
-              greater the number of trials, the more obvious it will be.)
+              switching. Look at the scoreboard - do you notice a trend?
+              <br />
+              <br />
+              The greater the number of trials, the more obvious it will be.
+              Also try increasing the number of doors - the math will reveal
+              itself!
             </p>
           </div>
           <div className="monty-hall-slider-description">
@@ -250,12 +282,9 @@ const DoorButton = props => (
 );
 
 const Instruction = props => (
-  <React.Fragment>
-    <div id="instruction-text">
-      <h2>{props.text}</h2>
-    </div>
-    {props.children}
-  </React.Fragment>
+  <div className="instruction">
+    <h2>{props.text}</h2>
+  </div>
 );
 
 const StickSwitch = props => (

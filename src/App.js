@@ -10,12 +10,16 @@ import { Projects } from "./pages/Projects.js";
 import { Contact } from "./pages/Contact.js";
 import "./stylesheets/App.css";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      menuOpen: false
-    };
+export default class App extends Component {
+  state = {
+    menuOpen: false
+  };
+
+  handleContentClick = e => {
+    if (this.state.menuOpen) {
+      e.stopPropagation();
+      this.toggleMenu();
+    }
   }
 
   toggleMenu = () => {
@@ -37,7 +41,7 @@ class App extends Component {
           config={MenuConfig}
           handleClick={this.toggleMenu}
         />
-        <div id={this.state.menuOpen ? "show" : "hide"} className="app-content">
+        <div id={this.state.menuOpen ? "show" : "hide"} className="app-content" onClick={this.handleContentClick}>
           <Switch>
             <Route exact path="/central" component={Home} />
             <Route exact path="/central/about" component={About} />
@@ -62,5 +66,3 @@ const MenuConfig = [
   ],
   [{ text: "C O N T A C T", link: "/central/contact" }]
 ];
-
-export default App;

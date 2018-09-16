@@ -4,12 +4,9 @@ import { SquareButton } from "./Buttons.js";
 import "../stylesheets/Slider.css";
 
 export class Slider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      position: 0
-    };
-  }
+  state = {
+    position: 0
+  };
 
   handleNextClick = e => {
     if (this.state.position + 1 < this.props.children.length) {
@@ -27,6 +24,39 @@ export class Slider extends Component {
     }
   };
 
+  displayNextArrow = () =>
+    this.state.position + 1 < this.props.children.length ? (
+      <SquareButton
+        id="next-arrow"
+        icon={<Next />}
+        handleClick={this.handleNextClick}
+      />
+    ) : (
+      ""
+    );
+
+  displayPreviousArrow = () =>
+    this.state.position > 0 ? (
+      <SquareButton
+        id="prev-arrow"
+        icon={<Previous />}
+        handleClick={this.handlePreviousClick}
+      />
+    ) : (
+      ""
+    );
+
+  displayNavigationIndicator = () =>
+    React.Children.map(
+      this.props.children,
+      (item, index) =>
+        index === this.state.position ? (
+          <RadialSelected id="radial-icon" />
+        ) : (
+          <Radial id="radial-icon" />
+        )
+    );
+
   render() {
     return (
       <div id={this.props.id} className="slider">
@@ -36,35 +66,11 @@ export class Slider extends Component {
           })}
         </div>
         <div className="slider-navigation">
-          {this.state.position > 0 ? (
-            <SquareButton
-              id="prev-arrow"
-              icon={<Previous />}
-              handleClick={this.handlePreviousClick}
-            />
-          ) : (
-            ""
-          )}
+          {this.displayPreviousArrow()}
           <div className="slider-navigation-indicator">
-            {React.Children.map(
-              this.props.children,
-              (item, index) =>
-                index === this.state.position ? (
-                  <RadialSelected id="radial-icon" />
-                ) : (
-                  <Radial id="radial-icon" />
-                )
-            )}
+            {this.displayNavigationIndicator()}
           </div>
-          {this.state.position + 1 < this.props.children.length ? (
-            <SquareButton
-              id="next-arrow"
-              icon={<Next />}
-              handleClick={this.handleNextClick}
-            />
-          ) : (
-            ""
-          )}
+          {this.displayNextArrow()}
         </div>
       </div>
     );
