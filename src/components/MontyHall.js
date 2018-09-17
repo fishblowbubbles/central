@@ -6,8 +6,8 @@ import "../stylesheets/MontyHall.css";
 
 export class MontyHall extends Component {
   score = [[0, 0], [0, 0]];
-  doors = [0, 0, 0];
-  selection = -1;
+  doors = [0, 0, 0]; // 0 = gremlin; -1 = opened, gremlin; 1 = diamond
+  selection = -1; // -1 = no selection; index otherwise
 
   state = {
     stage: 0
@@ -45,14 +45,6 @@ export class MontyHall extends Component {
   };
 
   /**
-   * Genereates a random integer between min (inclusive)
-   * and max (exlusive).
-   */
-  randomRange = (min, max) => {
-    return Math.floor(Math.random() * (max - min)) + min;
-  };
-
-  /**
    * Picks a random door, and assigns the prize to it.
    */
   setPrizePosition = () => {
@@ -66,9 +58,28 @@ export class MontyHall extends Component {
    */
   openGremlinDoor = () => {
     let gremlinPositions = this.getGremlinPositions();
-    let hostSelection = this.randomRange(0, gremlinPositions.length);
-    let toOpen = gremlinPositions[hostSelection];
+    let selectablePositions = [];
+
+    for (let i = 0; i < gremlinPositions.length; i++) {
+      if (gremlinPositions[i] !== this.selection)
+        selectablePositions.push(gremlinPositions[i]);
+    }
+
+    let hostSelection = this.randomRange(0, selectablePositions.length);
+    let toOpen = selectablePositions[hostSelection];
     this.doors[toOpen] = -1;
+  };
+
+  /**
+   * Iterates through the doors list and extracts the
+   * positions of those that contain a gremlin.
+   */
+  getGremlinPositions = () => {
+    let gremlinPositions = [];
+    for (let i = 0; i < this.doors.length; i++) {
+      if (this.doors[i] === 0) gremlinPositions.push(i);
+    }
+    return gremlinPositions;
   };
 
   /**
@@ -100,18 +111,11 @@ export class MontyHall extends Component {
   };
 
   /**
-   * Iterates through the doors list and extracts the
-   * positions of those that contain a gremlin and is
-   * not currently selected by the player
+   * Genereates a random integer between min (inclusive)
+   * and max (exlusive).
    */
-  getGremlinPositions = () => {
-    let gremlinPositions = [];
-    for (let i = 0; i < this.doors.length; i++) {
-      if (this.doors[i] === 0 && i !== this.selection) {
-        gremlinPositions.push(i);
-      }
-    }
-    return gremlinPositions;
+  randomRange = (min, max) => {
+    return Math.floor(Math.random() * (max - min)) + min;
   };
 
   whichIcon = value => {
@@ -142,98 +146,63 @@ export class MontyHall extends Component {
   };
 
   displayCurrentInstruction = () => {
-    if (this.state.stage === 0) {
-      return <h2>{"P I C K    A    D O O R"}</h2>;
-    } else if (this.state.stage === 1) {
-      return (
-        <StickSwitch
-          handleStickClick={this.handleStickClick}
-          handleSwitchClick={this.handleSwitchClick}
-        />
-      );
-    } else if (this.state.stage === 2) {
+    if (this.state.stage === 0) return <h2>{"P I C K    A    D O O R"}</h2>;
+    if (this.state.stage === 1)
       return (
         <React.Fragment>
-          {this.doors[this.selection] === 1 ? (
-            <React.Fragment>
-              <h2>{"W E L L    D O N E  !"}</h2>
-              <PlayAgain handleClick={this.handlePlayAgainClick} />
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <h2>{"U G H ,    G R E M L I N  !"}</h2>
-              <PlayAgain handleClick={this.handlePlayAgainClick} />
-            </React.Fragment>
-          )}
+          <RectangleButton
+            id="montyhall-select"
+            icon={<Secure />}
+            text="S T I C K"
+            handleClick={this.handleStickClick}
+          />
+          <RectangleButton
+            id="montyhall-select"
+            icon={<Shift />}
+            text="S W I T C H"
+            handleClick={this.handleSwitchClick}
+          />
         </React.Fragment>
+      );
+    if (this.state.stage === 2) {
+      return this.doors[this.selection] === 1 ? (
+        <PlayAgain
+          text="W E L L    D O N E  !"
+          handleClick={this.handlePlayAgainClick}
+        />
+      ) : (
+        <PlayAgain
+          text="U G H ,    G R E M L I N  !"
+          handleClick={this.handlePlayAgainClick}
+        />
       );
     }
   };
 
   render() {
     return (
-      <div id={this.props.id} className="monty-hall">
-        <div className="monty-hall-heading">Monty Hall Simulator</div>
-        <Slider id="monty-hall-slider">
-          <div className="monty-hall-slider-description">
-            <h2>{"T H E    P R O B L E M"}</h2>
-            <br />
-            <p>
-              Suppose you're on a game show, and you're given the choice of
-              three doors: behind one is a diamond; behind the others, gremlins.
-              <br />
-              <br />
-              You pick a door, say No. 1, and the host, who knows what's behind
-              the doors, opens another door, say No. 3, which has a gremlin.
-              <br />
-              <br />
-              He then says to you, ‘Do you want to pick door No. 2 instead?’ Is
-              it to your advantage to switch your choice?
-            </p>
-          </div>
-          <div className="monty-hall-slider-description">
-            <h2>{"T H E    E X P E R I M E N T"}</h2>
-            <br />
-            <p>
-              Play the game several times, alternating between sticking and
-              switching. Look at the scoreboard - do you notice a trend?
-              <br />
-              <br />
-              The greater the number of trials, the more obvious it will be.
-              Also try increasing the number of doors - the math will reveal
-              itself!
-            </p>
-          </div>
-          <div className="monty-hall-slider-description">
-            <h2>{"T H E    S O L U T I O N"}</h2>
-            <br />
-            <p>
-              Switching doubles your chance of winning. The host is the
-              difference maker here - it (in this case, the computer) knows
-              where prize is, and your initial choice determines which door it
-              reveals to you.
-              <br />
-              <br />
-              Another explanation is this: at the start, the door that you pick
-              has a 1/3 chance of containing the diamond; the other 2 doors will
-              have a combined chance of 2/3.
-              <br />
-              <br />
-              However, once the host opens a door with the gremlin, its
-              probability is now 0, but the combined probability does not
-              change. The remaining door, which you did not choose, now has a
-              probability of 2/3 - thus, always switch!
-            </p>
-          </div>
+      <div id={this.props.id} className="montyhall">
+        <div className="montyhall-heading">Monty Hall Simulator</div>
+        <Slider id="montyhall-slider">
+          {SliderContent.map(item => (
+            <div className="montyhall-slider-description">
+              <h2>{item.heading}</h2>
+              {item.content.map(paragraph => (
+                <p>
+                  <br />
+                  {paragraph}
+                  <br />
+                </p>
+              ))}
+            </div>
+          ))}
         </Slider>
-        <div className="monty-hall-interactive">
-          <div className="monty-hall-interactive-scoreboard">
-            <Scoreboard wins={this.score[0]} losses={this.score[1]} />
-          </div>
-          <div className="monty-hall-interactive-doors">
+        <div className="montyhall-interactive">
+          <Scoreboard wins={this.score[0]} losses={this.score[1]} />
+          <div className="montyhall-interactive-doors">
             {this.displayDoorButtons()}
           </div>
-          <div className="monty-hall-interactive-instructions">
+          <div className="montyhall-interactive-instructions">
             {this.displayCurrentInstruction()}
           </div>
         </div>
@@ -243,8 +212,8 @@ export class MontyHall extends Component {
 }
 
 const Scoreboard = props => (
-  <div className="scoreboard">
-    <table className="scoreboard-table">
+  <div className="montyhall-interactive-scoreboard">
+    <table className="montyhall-interactive-scoreboard-table">
       <thead>
         <tr>
           <th />
@@ -273,7 +242,7 @@ const Scoreboard = props => (
 const DoorButton = props => (
   <button
     id={props.id}
-    className="door-btn"
+    className="btn btn-door"
     onClick={props.handleClick}
     disabled={props.disabled}
   >
@@ -281,28 +250,40 @@ const DoorButton = props => (
   </button>
 );
 
-const StickSwitch = props => (
+const PlayAgain = props => (
   <React.Fragment>
+    <h2>{props.text}</h2>
     <RectangleButton
-      id="stick-switch-btn"
-      icon={<Secure />}
-      text="S T I C K"
-      handleClick={props.handleStickClick}
-    />
-    <RectangleButton
-      id="stick-switch-btn"
-      icon={<Shift />}
-      text="S W I T C H"
-      handleClick={props.handleSwitchClick}
+      id="montyhall-select"
+      icon={<Refresh />}
+      text="P L A Y    A G A I N"
+      handleClick={props.handleClick}
     />
   </React.Fragment>
 );
 
-const PlayAgain = props => (
-  <RectangleButton
-    id="play-again-btn"
-    icon={<Refresh />}
-    text="P L A Y    A G A I N"
-    handleClick={props.handleClick}
-  />
-);
+const SliderContent = [
+  {
+    heading: "T H E    P R O B L E M",
+    content: [
+      "Suppose you're on a game show, and you're given the choice of three doors: behind one is a diamond; behind the others, gremlins.",
+      "You pick a door, say No. 1, and the host, who knows what's behind the doors, opens another door, say No. 3, which has a gremlin.",
+      "He then says to you, ‘Do you want to pick door No. 2 instead?’ Is it to your advantage to switch your choice?"
+    ]
+  },
+  {
+    heading: "T H E    E X P E R I M E N T",
+    content: [
+      "Play the game several times, alternating between sticking and switching. Look at the scoreboard - do you notice a trend?",
+      "The greater the number of trials, the more obvious it will be. Also try increasing the number of doors - the math will reveal itself!"
+    ]
+  },
+  {
+    heading: "T H E    S O L U T I O N",
+    content: [
+      "Switching doubles your chance of winning. The host is thedifference maker here - it (in this case, the computer) knows where prize is, and your initial choice determines which door it reveals to you.",
+      "Another explanation is this: at the start, the door that you pick has a 1/3 chance of containing the diamond; the other 2 doors will have a combined chance of 2/3.",
+      "However, once the host opens a door with the gremlin, itsprobability is now 0, but the combined probability does not change. The remaining door, which you did not choose, now has a probability of 2/3 - thus, always switch!"
+    ]
+  }
+];

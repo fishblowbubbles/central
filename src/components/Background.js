@@ -1,3 +1,10 @@
 import React from "react";
+import "../stylesheets/Background.css";
 
-const Background = () => <div />;
+export const Background = props => (
+  <div
+    id={props.id}
+    className="background"
+    style={{ backgroundImage: "url(" + props.src + ")" }}
+  />
+);

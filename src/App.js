@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Menu } from "grommet-icons";
-import { MenuPanel } from "./components/Menu.js";
+import { Panel } from "./components/Panel.js";
 import { SquareButton } from "./components/Buttons.js";
 import { Home } from "./pages/Home.js";
 import { About } from "./pages/About.js";
@@ -12,36 +12,40 @@ import "./stylesheets/App.css";
 
 export default class App extends Component {
   state = {
-    menuOpen: false
+    panelOpen: false
   };
 
   handleContentClick = e => {
-    if (this.state.menuOpen) {
-      e.stopPropagation();
-      this.toggleMenu();
+    if (this.state.panelOpen) {
+      this.togglePanel();
     }
-  }
+  };
 
-  toggleMenu = () => {
+  togglePanel = () => {
     this.setState({
-      menuOpen: !this.state.menuOpen
+      panelOpen: !this.state.panelOpen
     });
   };
 
   render() {
+    let visible = this.state.panelOpen ? "show" : "hide";
     return (
       <div className="app">
         <SquareButton
-          id="menu-open"
+          id="panel-open"
           icon={<Menu />}
-          handleClick={this.toggleMenu}
+          handleClick={this.togglePanel}
         />
-        <MenuPanel
-          id={this.state.menuOpen ? "show" : "hide"}
-          config={MenuConfig}
-          handleClick={this.toggleMenu}
+        <Panel
+          id={visible}
+          config={PanelConfig}
+          handleClick={this.togglePanel}
         />
-        <div id={this.state.menuOpen ? "show" : "hide"} className="app-content" onClick={this.handleContentClick}>
+        <div
+          id={visible}
+          className="app-content"
+          onClick={this.handleContentClick}
+        >
           <Switch>
             <Route exact path="/central" component={Home} />
             <Route exact path="/central/about" component={About} />
@@ -55,7 +59,7 @@ export default class App extends Component {
   }
 }
 
-const MenuConfig = [
+const PanelConfig = [
   [
     { text: "H O M E", link: "/central" },
     { text: "A B O U T", link: "/central/about" }

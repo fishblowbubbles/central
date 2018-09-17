@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Book, FormNext } from "grommet-icons";
+import { Background } from "../components/Background.js";
 import { RectangleButton, SquareButton } from "../components/Buttons.js";
 // import { Construction } from "../components/Error.js";
 import "../stylesheets/Blog.css";
@@ -14,8 +15,6 @@ export class Blog extends Component {
       postOpen: !this.state.postOpen
     });
   };
-
-  displayCategories = () => <div />;
 
   displayToggleButton = () =>
     this.state.postOpen ? (
@@ -34,14 +33,12 @@ export class Blog extends Component {
     );
 
   render() {
+    let visible = this.state.postOpen ? "show" : "hide";
     return (
       <div className="blog">
-        <div
-          id={this.state.postOpen ? "show" : "hide"}
-          className="blog-navigation"
-        />
-        <div id={this.state.postOpen ? "show" : "hide"} className="blog-center">
-          <div className="blog-center-background" />
+        <div id={visible} className="blog-navigation" />
+        <div id={visible} className="blog-center">
+          <Background src="/assets/hkust.jpg" />
           <div className="blog-center-content">
             <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit</h1>
             <br />
@@ -52,7 +49,7 @@ export class Blog extends Component {
             </p>
           </div>
         </div>
-        <div id={this.state.postOpen ? "show" : "hide"} className="blog-posts">
+        <div id={visible} className="blog-posts">
           {this.displayToggleButton()}
         </div>
       </div>
