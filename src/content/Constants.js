@@ -7,5 +7,6 @@ export const NavigationConfig = [
     { text: "B L O G", link: "/central/blog" },
     { text: "P R O J E C T S", link: "/central/projects" }
   ],
-  [{ text: "C O N T A C T", link: "/central/contact" }]
+  [{ text: "C O N T A C T", link: "/central/contact" }],
+  [{ text: "C R E D I T S", link: "/central/credits" }]
 ];

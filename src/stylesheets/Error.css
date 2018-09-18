@@ -9,6 +9,10 @@
   justify-content: center;
 }
 
+.under-construction > h2 {
+  font-weight: bold;
+}
+
 #paint-bucket {
   width: 20%;
   height: 20%;

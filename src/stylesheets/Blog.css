@@ -2,7 +2,7 @@
   display: grid;
   grid-template-areas: "nav center content";
   grid-template-rows: 100vh;
-  grid-template-columns: auto auto 75vw;
+  grid-template-columns: auto auto 65vw;
 }
 
 .blog-navigation {
@@ -25,6 +25,9 @@
   height: 60vh;
   margin: 20vh 5vw 20vh 5vw;
   overflow-x: hidden;
+  overflow-y: auto;
+  display: grid;
+  grid-template-rows: 1fr 3fr;
 }
 .blog-navigation-latest,
 .blog-navigation-category {
@@ -32,6 +35,8 @@
 }
 
 .blog-center {
+  background-color: black;
+  padding: 5vw;
   grid-area: center;
   position: relative;
   display: grid;
@@ -40,40 +45,88 @@
 }
 
 .blog-center#hide {
-  width: 75vw;
+  width: 65vw;
 }
 
 .blog-center#show {
-  width: 35vw;
+  width: 25vw;
 }
 
 .blog-center-content {
-  max-width: 40vw;
-  padding: 10%;
+  max-width: 35vw;
   z-index: 1;
   display: grid;
   align-items: flex-end;
   grid-template-columns: 1fr;
-  animation: fade 1s;
 }
 
 .blog-center-content > h1 {
-  font-size: 4rem;
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: 2.5rem;
   font-weight: bold;
 }
 
-.blog-center-content > h1,
-.blog-center-content > p {
+.blog-center-content > * {
   color: white;
+  margin: 2.5% 0;
 }
 
-.blog-posts {
+.blog-post {
   background-color: white;
-  width: 75vw;
-  height: 100%;
-  grid-area: content;
+  padding: 5%;
   position: relative;
   z-index: 2;
+  grid-area: content;
+}
+
+.blog-post-content {
+  height: 100%;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 2.5vw;
+}
+
+.blog-post-section {
+  display: grid;
+  grid-template-areas:
+    "heading image"
+    "text image";
+  grid-template-rows: 
+    auto
+    1fr;
+  grid-template-columns:
+    1fr 1fr;
+}
+
+.blog-post-section-heading {
+  border-width: 0 0 1px 0;
+  border-color: lightgray;
+  border-style: solid;
+  grid-area: heading;
+  display: flex;
+  align-items: flex-end;
+}
+
+.blog-post-section-heading > h1 {
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: 1.5rem;
+}
+
+.blog-post-section-text {
+  text-align: justify;
+  padding: 5% 5% 5% 0;
+  grid-area: text;
+}
+
+.blog-post-section-image {
+  grid-area: image;
+}
+
+.blog-post-section-image > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 #posts-open {

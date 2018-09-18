@@ -9,7 +9,9 @@
 
 #accordion-heading {
   text-decoration: underline;
+  white-space: normal;
   font-weight: bold;
   width: 100%;
+  padding: 0;
   justify-content: left;
 }

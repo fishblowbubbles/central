@@ -6,15 +6,15 @@
     "slider"
     "interactive";
   grid-template-rows:
-    auto
+    1fr
     400px
     400px;
 }
 
 .montyhall-heading {
   text-align: center;
-  font-family: "Yellowtail", cursive;
-  font-size: 3rem;
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: 2.5rem;
   border-width: 0 0 1px 0;
   border-color: lightgray;
   border-style: solid;
@@ -50,6 +50,10 @@
   grid-template-rows: 1fr 1fr;
   align-items: center;
   justify-content: center;
+}
+
+.montyhall-interactive-instructions > h2 {
+  font-family: "Rubik Mono One", sans-serif;
 }
 
 .montyhall-interactive-scoreboard {
@@ -99,6 +103,10 @@
   grid-area: slider;
 }
 
+#montyhall-slider > .slider-content {
+  padding: 5%;
+}
+
 #montyhall-stickswitch {
   margin: 2.5%;
 }
@@ -109,8 +117,8 @@
       "heading heading"
       "slider interactive";
     grid-template-rows:
-      auto
-      50vh;
+      1fr
+      400px;
     grid-template-columns: 1fr 1fr;
   }
 

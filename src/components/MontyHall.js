@@ -133,7 +133,7 @@ export class MontyHall extends Component {
     return icon;
   };
 
-  displayDoorButtons = () => 
+  displayDoorButtons = () =>
     this.doors.map((value, index) => (
       <DoorButton
         id={index === this.selection ? "highlight" : ""}
@@ -145,7 +145,7 @@ export class MontyHall extends Component {
     ));
 
   displayCurrentInstruction = () => {
-    if (this.state.stage === 0) return <h2>{"P I C K    A    D O O R"}</h2>;
+    if (this.state.stage === 0) return <h2>{"PICK A DOOR"}</h2>;
     if (this.state.stage === 1)
       return (
         <React.Fragment>
@@ -165,13 +165,10 @@ export class MontyHall extends Component {
       );
     if (this.state.stage === 2) {
       return this.doors[this.selection] === 1 ? (
-        <PlayAgain
-          text="W E L L    D O N E  !"
-          handleClick={this.handlePlayAgainClick}
-        />
+        <PlayAgain text="WELL DONE!" handleClick={this.handlePlayAgainClick} />
       ) : (
         <PlayAgain
-          text="U G H ,    G R E M L I N  !"
+          text="UGH, GREMLIN!"
           handleClick={this.handlePlayAgainClick}
         />
       );
@@ -197,7 +194,31 @@ export class MontyHall extends Component {
           ))}
         </Slider>
         <div className="montyhall-interactive">
-          <Scoreboard wins={this.score[0]} losses={this.score[1]} />
+          <div className="montyhall-interactive-scoreboard">
+            <table className="montyhall-interactive-scoreboard-table">
+              <thead>
+                <tr>
+                  <th />
+                  <th>S T I C K</th>
+                  <th>S W I T C H</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>W I N S</th>
+                  {this.score[0].map(count => (
+                    <td>{count}</td>
+                  ))}
+                </tr>
+                <tr>
+                  <th>L O S S E S</th>
+                  {this.score[1].map(count => (
+                    <td>{count}</td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <div className="montyhall-interactive-doors">
             {this.displayDoorButtons()}
           </div>
@@ -209,34 +230,6 @@ export class MontyHall extends Component {
     );
   }
 }
-
-const Scoreboard = props => (
-  <div className="montyhall-interactive-scoreboard">
-    <table className="montyhall-interactive-scoreboard-table">
-      <thead>
-        <tr>
-          <th />
-          <th>S T I C K</th>
-          <th>S W I T C H</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>W I N S</th>
-          {props.wins.map(count => (
-            <td>{count}</td>
-          ))}
-        </tr>
-        <tr>
-          <th>L O S S E S</th>
-          {props.losses.map(count => (
-            <td>{count}</td>
-          ))}
-        </tr>
-      </tbody>
-    </table>
-  </div>
-);
 
 const DoorButton = props => (
   <button
@@ -280,9 +273,9 @@ const SliderContent = [
   {
     heading: "T H E    S O L U T I O N",
     content: [
-      "Switching doubles your chance of winning. The host is thedifference maker here - it (in this case, the computer) knows where prize is, and your initial choice determines which door it reveals to you.",
-      "Another explanation is this: at the start, the door that you pick has a 1/3 chance of containing the diamond; the other 2 doors will have a combined chance of 2/3.",
-      "However, once the host opens a door with the gremlin, itsprobability is now 0, but the combined probability does not change. The remaining door, which you did not choose, now has a probability of 2/3 - thus, always switch!"
+      "Switching doubles your chance of winning. The host is the difference maker here - it (in this case, the computer) knows where the prize is, and your initial choice determines which door it reveals to you.",
+      "Another explanation is this: at the start, the door that you pick has a 1/3 chance of containing the diamond; the other 2 doors will have a combined chance of 2/3. However, once the host opens a door with the gremlin, its probability is now 0, but the combined probability does not change. The remaining door, which you did not choose, now has a probability of 2/3.",
+      "Thus, always switch!"
     ]
   }
 ];
