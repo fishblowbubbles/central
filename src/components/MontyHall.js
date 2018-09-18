@@ -274,8 +274,7 @@ const SliderContent = [
     heading: "T H E    S O L U T I O N",
     content: [
       "Switching doubles your chance of winning. The host is the difference maker here - it (in this case, the computer) knows where the prize is, and your initial choice determines which door it reveals to you.",
-      "Another explanation is this: at the start, the door that you pick has a 1/3 chance of containing the diamond; the other 2 doors will have a combined chance of 2/3. However, once the host opens a door with the gremlin, its probability is now 0, but the combined probability does not change. The remaining door, which you did not choose, now has a probability of 2/3.",
-      "Thus, always switch!"
+      "Another explanation is this: at the start, the door that you pick has a 1/3 chance of containing the diamond; the other 2 doors will have a combined chance of 2/3. However, once the host opens a door with the gremlin, its probability is now 0, but the combined probability does not change. The remaining door, which you did not choose, now has a probability of 2/3!"
     ]
   }
 ];
