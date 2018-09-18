@@ -6,23 +6,26 @@
 }
 
 .blog-navigation {
-  background-color: whitesmoke;
+  background-color: white;
   grid-area: nav;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
   transition: width 0.8s ease-in-out;
 }
 
 .blog-navigation#hide {
-  width: 30vw;
+  width: 25vw;
 }
 
 .blog-navigation#show {
   width: 0vw;
 }
 
+.blog-navigation-accordions {
+  width: 15vw;
+  height: 60vh;
+  margin: 20vh 5vw 20vh 5vw;
+  overflow-x: hidden;
+}
 .blog-navigation-latest,
 .blog-navigation-category {
   width: 100%;
@@ -37,7 +40,7 @@
 }
 
 .blog-center#hide {
-  width: 70vw;
+  width: 75vw;
 }
 
 .blog-center#show {
@@ -55,7 +58,7 @@
 }
 
 .blog-center-content > h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: bold;
 }
 

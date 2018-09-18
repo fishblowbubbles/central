@@ -110,7 +110,7 @@
       "slider interactive";
     grid-template-rows:
       auto
-      400px;
+      50vh;
     grid-template-columns: 1fr 1fr;
   }
 

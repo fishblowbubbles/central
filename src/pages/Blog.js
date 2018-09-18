@@ -74,28 +74,29 @@ export class Blog extends Component {
     return (
       <div className="blog">
         <div id={visible} className="blog-navigation">
-          <div className="blog-navigation-latest">
-            <Accordion heading="L A T E S T" startState="open">
-              <PanelButton
-                id="blog-link"
-                text="Link 1"
-                handleClick={this.handleLinkClick}
-              />
-              <PanelButton
-                id="blog-link"
-                text="Link 2"
-                handleClick={this.handleLinkClick}
-              />
-            </Accordion>
+          <div className="blog-navigation-accordions">
+            <div className="blog-navigation-latest">
+              <Accordion heading="L A T E S T" startState="open">
+                <PanelButton
+                  id="blog-link"
+                  text="Link 1"
+                  handleClick={this.handleLinkClick}
+                />
+                <PanelButton
+                  id="blog-link"
+                  text="Link 2"
+                  handleClick={this.handleLinkClick}
+                />
+              </Accordion>
+            </div>
+            {this.displayAllCategories()}
+            <div className="blog-navigation-categories" />
           </div>
-          {this.displayAllCategories()}
-          <div className="blog-navigation-categories" />
         </div>
         <div id={visible} className="blog-center">
           <Background src="/assets/hkust.jpg" />
           <div className="blog-center-content">
             <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit</h1>
-            <br />
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Laudantium at repellendus fuga expedita odio nostrum sequi optio
