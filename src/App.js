@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { Menu } from "grommet-icons";
 import { Panel } from "./components/Panel.js";
 import { SquareButton } from "./components/Buttons.js";
+import { NavigationConfig } from "./content/Constants.js";
 import { Home } from "./pages/Home.js";
 import { About } from "./pages/About.js";
 import { Blog } from "./pages/Blog.js";
@@ -16,9 +17,8 @@ export default class App extends Component {
   };
 
   handleContentClick = e => {
-    if (this.state.panelOpen) {
+    if (this.state.panelOpen)
       this.togglePanel();
-    }
   };
 
   togglePanel = () => {
@@ -28,7 +28,7 @@ export default class App extends Component {
   };
 
   render() {
-    let visible = this.state.panelOpen ? "show" : "hide";
+    const visible = this.state.panelOpen ? "show" : "hide";
     return (
       <div className="app">
         <SquareButton
@@ -38,7 +38,7 @@ export default class App extends Component {
         />
         <Panel
           id={visible}
-          config={PanelConfig}
+          config={NavigationConfig}
           handleClick={this.togglePanel}
         />
         <div
@@ -58,15 +58,3 @@ export default class App extends Component {
     );
   }
 }
-
-const PanelConfig = [
-  [
-    { text: "H O M E", link: "/central" },
-    { text: "A B O U T", link: "/central/about" }
-  ],
-  [
-    { text: "B L O G", link: "/central/blog" },
-    { text: "P R O J E C T S", link: "/central/projects" }
-  ],
-  [{ text: "C O N T A C T", link: "/central/contact" }]
-];

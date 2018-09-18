@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Close, FacebookOption, Instagram, Twitter } from "grommet-icons";
 import { SquareButton, PanelButton } from "./Buttons.js";
-import "../stylesheets/Menu.css";
+import "../stylesheets/Panel.css";
 
 export const Panel = props => (
   <div id={props.id} className="panel">
@@ -20,7 +20,6 @@ export const Panel = props => (
             <Link to={item.link}>
               <PanelButton
                 id="panel-link"
-                className="panel-navigation-item"
                 text={item.text}
                 handleClick={props.handleClick}
               />

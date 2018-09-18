@@ -133,8 +133,8 @@ export class MontyHall extends Component {
     return icon;
   };
 
-  displayDoorButtons = () => {
-    return this.doors.map((value, index) => (
+  displayDoorButtons = () => 
+    this.doors.map((value, index) => (
       <DoorButton
         id={index === this.selection ? "highlight" : ""}
         icon={this.whichIcon(value)}
@@ -143,7 +143,6 @@ export class MontyHall extends Component {
         disabled={this.state.stage !== 0}
       />
     ));
-  };
 
   displayCurrentInstruction = () => {
     if (this.state.stage === 0) return <h2>{"P I C K    A    D O O R"}</h2>;

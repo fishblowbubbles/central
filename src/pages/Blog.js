@@ -1,23 +1,37 @@
 import React, { Component } from "react";
 import { Book, FormNext } from "grommet-icons";
+import { Accordion } from "../components/Accordion.js";
 import { Background } from "../components/Background.js";
-import { RectangleButton, SquareButton } from "../components/Buttons.js";
-// import { Construction } from "../components/Error.js";
+import {
+  PanelButton,
+  RectangleButton,
+  SquareButton
+} from "../components/Buttons.js";
+import { Posts } from "../content/Posts.js";
 import "../stylesheets/Blog.css";
 
 export class Blog extends Component {
+  posts = Posts;
+  latest = [];
+  current = [];
+
   state = {
-    postOpen: false
+    postsOpen: false
   };
+
+  /**
+   * TODO: Change content of posts panel accordingly.
+   */
+  handleLinkClick = e => {};
 
   togglePost = () => {
     this.setState({
-      postOpen: !this.state.postOpen
+      postsOpen: !this.state.postsOpen
     });
   };
 
   displayToggleButton = () =>
-    this.state.postOpen ? (
+    this.state.postsOpen ? (
       <SquareButton
         id="posts-close"
         icon={<FormNext />}
@@ -32,11 +46,51 @@ export class Blog extends Component {
       />
     );
 
+  /**
+   * TODO : Search categories for n latest posts,
+   * saving their positions in the list this.latest
+   */
+  fetchLatestPosts = n => {};
+
+  displayLatestPosts = () => {};
+
+  displayAllCategories = () =>
+    this.posts.map(category => (
+      <div className="blog-navigation-category">
+        <Accordion heading={category.name} startState="open">
+          {category.posts.map(post => (
+            <PanelButton
+              id="blog-link"
+              text={post.title}
+              handleClick={this.handleLinkClick}
+            />
+          ))}
+        </Accordion>
+      </div>
+    ));
+
   render() {
-    let visible = this.state.postOpen ? "show" : "hide";
+    const visible = this.state.postsOpen ? "show" : "hide";
     return (
       <div className="blog">
-        <div id={visible} className="blog-navigation" />
+        <div id={visible} className="blog-navigation">
+          <div className="blog-navigation-latest">
+            <Accordion heading="L A T E S T" startState="open">
+              <PanelButton
+                id="blog-link"
+                text="Link 1"
+                handleClick={this.handleLinkClick}
+              />
+              <PanelButton
+                id="blog-link"
+                text="Link 2"
+                handleClick={this.handleLinkClick}
+              />
+            </Accordion>
+          </div>
+          {this.displayAllCategories()}
+          <div className="blog-navigation-categories" />
+        </div>
         <div id={visible} className="blog-center">
           <Background src="/assets/hkust.jpg" />
           <div className="blog-center-content">

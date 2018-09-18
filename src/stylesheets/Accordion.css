@@ -1,0 +1,15 @@
+.accordion-section {
+  display: flex;
+  flex-flow: column;
+}
+
+.accordion-section#hide {
+  display: none;
+}
+
+#accordion-heading {
+  text-decoration: underline;
+  font-weight: bold;
+  width: 100%;
+  justify-content: left;
+}
