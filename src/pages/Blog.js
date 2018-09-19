@@ -6,22 +6,23 @@ import {
   RectangleButton,
   SquareButton
 } from "../components/Buttons.js";
-import { Posts } from "../content/Posts.js";
+import Posts from "../content/Posts.js";
 import "../stylesheets/Blog.css";
 
 export class Blog extends Component {
-  posts = Posts;
-  latest = [];
-  current = [0, 0];
-
   state = {
-    postsOpen: false
+    postsOpen: false,
+    current: Posts[(0, 0)]
   };
 
-  /**
-   * TODO: Change content of posts panel accordingly.
-   */
-  handleLinkClick = e => {};
+  handleLinkClick = (e, x, y) => {
+    const category = Posts[x];
+    const post = category.posts[y];
+
+    this.setState({
+      current: post
+    });
+  };
 
   togglePost = () => {
     this.setState({
@@ -54,23 +55,29 @@ export class Blog extends Component {
   displayLatestPosts = () => {};
 
   displayAllCategories = () =>
-    this.posts.map(category => (
-      <div className="blog-navigation-category">
-        <Accordion heading={category.name} startState="open">
-          {category.posts.map(post => (
-            <PanelButton
-              id="blog-link"
-              text={post.title}
-              handleClick={this.handleLinkClick}
-            />
-          ))}
-        </Accordion>
-      </div>
+    Posts.map((category, x) => (
+      <Accordion heading={category.name} startState="open">
+        {category.posts.map((post, y) => (
+          <PanelButton
+            id="blog-link"
+            text={post.title}
+            handleClick={e => this.handleLinkClick(e, x, y)}
+          />
+        ))}
+      </Accordion>
     ));
 
+  displayCurrentHero = () => (
+    <div className="blog-center-content">
+      <h1>{this.state.current.title}</h1>
+      <h3>{this.state.current.description}</h3>
+      <h5>{this.state.current.date}</h5>
+    </div>
+  );
+
   displayCurrentPost = () => {
-    const post = this.posts[this.current[0]].posts[this.current[1]];
-    return post.content.map(section => (
+    const content = this.state.current.content;
+    return content.map(section => (
       <div className="blog-post-section">
         <div className="blog-post-section-heading">
           <h1>{section.heading}</h1>
@@ -91,36 +98,18 @@ export class Blog extends Component {
       <div className="blog">
         <div id={visible} className="blog-navigation">
           <div className="blog-navigation-accordions">
+            <h2>L A T E S T</h2>
             <div className="blog-navigation-latest">
-              <h2>L A T E S T</h2>
-              <br />
-              <PanelButton
-                id="blog-link"
-                text="Link 1"
-                handleClick={this.handleLinkClick}
-              />
-              <PanelButton
-                id="blog-link"
-                text="Link 2"
-                handleClick={this.handleLinkClick}
-              />
+              {this.displayLatestPosts()}
             </div>
+            <h2>C A T E G O R I E S</h2>
             <div className="blog-navigation-categories">
-              <h2>C A T E G O R I E S</h2>
               {this.displayAllCategories()}
             </div>
           </div>
         </div>
         <div id={visible} className="blog-center">
-          <div className="blog-center-content">
-            <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit</h1>
-            <h3>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Laudantium at repellendus fuga expedita odio nostrum sequi optio
-              facere earum illum!
-            </h3>
-            <h5>18 September 2018</h5>
-          </div>
+          {this.displayCurrentHero()}
         </div>
         <div id={visible} className="blog-post">
           <div className="blog-post-content">

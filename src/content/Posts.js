@@ -1,10 +1,11 @@
-export const Posts = [
+export default [
   {
     name: "NTHU Summer School 2017",
     posts: [
       {
         title: "First Impressions",
         thumbnail: "",
+        date: "",
         description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, et. Eligendi quia optio cupiditate fugiat qui nesciunt, velit dolores deleniti.",
         content: [
@@ -32,6 +33,7 @@ export const Posts = [
       {
         title: "Little to See, Much to Love",
         thumbnail: "",
+        date: "",
         description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, et. Eligendi quia optio cupiditate fugiat qui nesciunt, velit dolores deleniti.",
         content: [
@@ -58,6 +60,7 @@ export const Posts = [
       {
         title: "Friends and Food",
         thumbnail: "",
+        date: "",
         description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, et. Eligendi quia optio cupiditate fugiat qui nesciunt, velit dolores deleniti.",
         content: [
@@ -70,18 +73,21 @@ export const Posts = [
           {
             heading: "Drinks are Free Flow",
             image: "",
-            text: "You can't get plain water at restaurants, instead they provide a free flow of drinks (sometimes soup too), and it is almost always winter melon tea."
+            text:
+              "You can't get plain water at restaurants, instead they provide a free flow of drinks (sometimes soup too), and it is almost always winter melon tea."
           },
           {
             heading: "No Forks Given",
             image: "",
-            text: "Mixed rice (better known as cai fan) from the cafeteria is both tasty and cheap - but instead of a fork and a spoon, you'll have to use chopsticks and a duck spoon, and to make things more tricky, it's still served on a plate. Also, it is self-service, so you don't have to worry about having to look pretty (or handsome?) for the stall uncle, or any kind of bias in order to be given a generous portion - simply take as much veggies as you want, and pick the biggest piece of meat!"
+            text:
+              "Mixed rice (better known as cai fan) from the cafeteria is both tasty and cheap - but instead of a fork and a spoon, you'll have to use chopsticks and a duck spoon, and to make things more tricky, it's still served on a plate. Also, it is self-service, so you don't have to worry about having to look pretty (or handsome?) for the stall uncle, or any kind of bias in order to be given a generous portion - simply take as much veggies as you want, and pick the biggest piece of meat!"
           }
         ]
       },
       {
         title: "Last Things",
         thumbnail: "",
+        date: "",
         description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, et. Eligendi quia optio cupiditate fugiat qui nesciunt, velit dolores deleniti.",
         content: [
@@ -94,17 +100,20 @@ export const Posts = [
           {
             heading: "Summer Breezes Can Get Really Strong",
             image: "",
-            text: "During my last weekend in Taiwan, the year's first typhoon hit the island. The warnings came early, but the locals didn't seem to fazed by the news - businesses were open until the last minute. Nevertheless, as I discovered when I stepped outside to buy dinner just as the winds on the outer fringes of the storm arrived - a category 1 (weakest) typhoon is still a typhoon, and you really don't want to be outdoors."
+            text:
+              "During my last weekend in Taiwan, the year's first typhoon hit the island. The warnings came early, but the locals didn't seem to fazed by the news - businesses were open until the last minute. Nevertheless, as I discovered when I stepped outside to buy dinner just as the winds on the outer fringes of the storm arrived - a category 1 (weakest) typhoon is still a typhoon, and you really don't want to be outdoors."
           },
           {
             heading: "The Missing Ingredient",
             image: "",
-            text: "If there's a flavour that is lacking in Taiwanese food, it is a strong garlic taste (i.e. found in Bak Kut Teh and Lor Mee) and I miss it. That's all I wanted to say about this."
+            text:
+              "If there's a flavour that is lacking in Taiwanese food, it is a strong garlic taste (i.e. found in Bak Kut Teh and Lor Mee) and I miss it. That's all I wanted to say about this."
           },
           {
             heading: "Don't Be A Hero",
             image: "",
-            text: "While hiking alone in the mountains around Pingxi Station,  I made some new friends. It began with them asking me for directions and I telling them that  I was as clueless as them, and we ended up climbing together.  They were locals, but thought that I too was a local at first, from my mandarin-speaking accent (and fluency?), which I take as an enormous compliment, considering my C6 'O' Level Mother Tongue grade. It turned out to be a real blessing, as some sections of the trail were unexpectedly difficult, requiring a helping hand or two, where tackling them on my own may have ended badly. As my mum will always tell me, 'Don't be a helo, you are just a human bean.'"
+            text:
+              "While hiking alone in the mountains around Pingxi Station,  I made some new friends. It began with them asking me for directions and I telling them that  I was as clueless as them, and we ended up climbing together.  They were locals, but thought that I too was a local at first, from my mandarin-speaking accent (and fluency?), which I take as an enormous compliment, considering my C6 'O' Level Mother Tongue grade. It turned out to be a real blessing, as some sections of the trail were unexpectedly difficult, requiring a helping hand or two, where tackling them on my own may have ended badly. As my mum will always tell me, 'Don't be a helo, you are just a human bean.'"
           }
         ]
       }
@@ -116,6 +125,7 @@ export const Posts = [
       {
         title: "Title 1",
         thumbnail: "",
+        date: "",
         description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, et. Eligendi quia optio cupiditate fugiat qui nesciunt, velit dolores deleniti.",
         content: [
@@ -134,6 +144,7 @@ export const Posts = [
       {
         title: "Title 2",
         thumbnail: "",
+        date: "",
         description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, et. Eligendi quia optio cupiditate fugiat qui nesciunt, velit dolores deleniti.",
         content: [
@@ -152,6 +163,7 @@ export const Posts = [
       {
         title: "Title 3",
         thumbnail: "",
+        date: "",
         description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, et. Eligendi quia optio cupiditate fugiat qui nesciunt, velit dolores deleniti.",
         content: [
