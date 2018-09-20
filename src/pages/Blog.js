@@ -56,13 +56,14 @@ export class Blog extends Component {
 
   displayAllCategories = () =>
     Posts.map((category, x) => (
-      <Accordion heading={category.name} startState="open">
+      <Accordion heading={category.name}>
         {category.posts.map((post, y) => (
-          <PanelButton
-            id="blog-link"
-            text={post.title}
-            handleClick={e => this.handleLinkClick(e, x, y)}
-          />
+          <div
+            className="blog-link"
+            onClick={e => this.handleLinkClick(e, x, y)}
+          >
+            {post.title}
+          </div>
         ))}
       </Accordion>
     ));
@@ -79,7 +80,7 @@ export class Blog extends Component {
     this.state.current.content.map(section => (
       <div className="blog-post-content-section">
         <div className="blog-post-content-section-heading">
-          <h1>{section.heading}</h1>
+          <h2>{section.heading}</h2>
         </div>
         <div className="blog-post-content-section-text">
           <p>{section.text}</p>
@@ -96,12 +97,12 @@ export class Blog extends Component {
       <div className="blog">
         <div id={visible} className="blog-navigation">
           <div className="blog-navigation-accordions">
-            <h2>L A T E S T</h2>
             <div className="blog-navigation-latest">
+              <h2>L A T E S T</h2>
               {this.displayLatestPosts()}
             </div>
-            <h2>C A T E G O R I E S</h2>
             <div className="blog-navigation-categories">
+              <h2>A L L</h2>
               {this.displayAllCategories()}
             </div>
           </div>

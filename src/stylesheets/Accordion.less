@@ -1,8 +1,17 @@
-.accordion-section {
-  display: flex;
-  flex-flow: column;
+.accordion {
+  padding: 1em;
 
-  &#hide {
-    display: none;
-  } 
+  &-section {
+    display: flex;
+    flex-flow: column;
+    
+    &#hide {
+      display: none;
+    }
+  }
+
+  &-heading {
+    text-decoration: underline;
+  }
+
 }

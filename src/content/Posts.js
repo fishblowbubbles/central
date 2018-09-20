@@ -1,6 +1,6 @@
 export default [
   {
-    name: "NTHU Summer School 2017",
+    name: "NTHU Global Summer School 2017",
     posts: [
       {
         title: "First Impressions",

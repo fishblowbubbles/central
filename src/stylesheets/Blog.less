@@ -6,22 +6,24 @@
 
   &-navigation {
     background-color: white;
-
     grid-area: nav;
     display: grid;
-
     transition: width 0.8s ease-in-out;
+
+    h2 {
+      border-width: 0 0 1px 0;
+      border-color: lightgray;
+      border-style: solid;
+      margin: 1em 0 1em 0;
+    }
 
     &-accordions {
       width: 15vw;
       height: 60vh;
       overflow-x: hidden;
-      overflow-y: auto;
-
       margin: 20vh 5vw 20vh 5vw;
-
       display: grid;
-      grid-template-rows: 1fr 3fr;
+      grid-template-rows: 120px 1fr;
 
       #blog-link {
         height: auto;
@@ -45,26 +47,18 @@
 
   &-hero {
     background-color: black;
-
     padding: 5vw;
-
     position: relative;
-
     grid-area: center;
     display: grid;
-
     align-items: center;
-
     transition: width 0.8s ease-in-out;
 
     &-content {
       max-width: 35vw;
-
       z-index: 1;
-
       display: grid;
       grid-template-columns: 1fr;
-
       align-items: flex-end;
 
       h1 {
@@ -90,12 +84,9 @@
 
   &-post {
     background-color: white;
-
     padding: 5%;
-
     position: relative;
     z-index: 2;
-
     grid-area: content;
 
     &-content {
@@ -120,17 +111,9 @@
           border-width: 0 0 1px 0;
           border-color: lightgray;
           border-style: solid;
-
           grid-area: heading;
-
           display: flex;
-
           align-items: flex-end;
-
-          h1 {
-            font-family: "Rubik Mono One", sans-serif;
-            font-size: 1.5rem;
-          }
         }
 
         &-text {
@@ -153,17 +136,14 @@
 
     #posts-open {
       background-color: white;
-      
       width: 176px;
-      
       position: absolute;
       bottom: 48px;
       left: -176px;
     }
-    
+
     #posts-close {
       background-color: white;
-      
       position: absolute;
       bottom: 48px;
       left: -48px;
