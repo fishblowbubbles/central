@@ -3,13 +3,12 @@ import { Switch, Route } from "react-router-dom";
 import { Menu } from "grommet-icons";
 import { Panel } from "./components/Panel.js";
 import { SquareButton } from "./components/Buttons.js";
-import { NavigationConfig } from "./content/Constants.js";
 import { Home } from "./pages/Home.js";
 import { About } from "./pages/About.js";
 import { Blog } from "./pages/Blog.js";
 import { Projects } from "./pages/Projects.js";
 import { Contact } from "./pages/Contact.js";
-import "./stylesheets/App.css";
+import "./stylesheets/App.less";
 
 export default class App extends Component {
   state = {
@@ -58,3 +57,16 @@ export default class App extends Component {
     );
   }
 }
+
+export const NavigationConfig = [
+  [
+    { text: "H O M E", link: "/central" },
+    { text: "A B O U T", link: "/central/about" }
+  ],
+  [
+    { text: "B L O G", link: "/central/blog" },
+    { text: "P R O J E C T S", link: "/central/projects" }
+  ],
+  [{ text: "C O N T A C T", link: "/central/contact" }],
+  [{ text: "C R E D I T S", link: "/central/credits" }]
+];

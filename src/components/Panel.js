@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Close, FacebookOption, Instagram, Twitter } from "grommet-icons";
 import { SquareButton, PanelButton } from "./Buttons.js";
-import "../stylesheets/Panel.css";
+import "../stylesheets/Panel.less";
 
 export const Panel = props => (
   <div id={props.id} className="panel">

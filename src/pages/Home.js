@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Edit, Github } from "grommet-icons";
 import { RectangleButton } from "../components/Buttons.js";
 import { MontyHall } from "../components/MontyHall.js";
-import "../stylesheets/Home.css";
+import "../stylesheets/Home.less";
 
 export const Home = () => {
   return (
@@ -27,7 +27,7 @@ export const Home = () => {
           />
         </a>
       </div>
-      <div className="home-doo-dad">
+      <div className="home-doodad">
         <MontyHall />
       </div>
     </div>

@@ -1,0 +1,50 @@
+.slider {
+  display: grid;
+  grid-template-areas: "content" "navigation";
+  grid-template-rows: 1fr auto;
+  
+  &-navigation {
+    padding: 5%;
+    
+    display: grid;
+    grid-template-areas: "prev-arrow indicator next-arrow";
+    grid-template-columns: 50px 1fr 50px;
+    
+    &-indicator {
+      z-index: 0;
+      
+      grid-area: indicator;
+      
+      display: flex;
+      
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #next-arrow {
+      grid-area: next-arrow;
+    }
+    
+    #prev-arrow {
+      grid-area: prev-arrow;
+    }
+    
+    #next-arrow,
+    #prev-arrow {
+      border-width: 1px;
+      border-color: lightgray;
+      border-style: solid;
+    }
+    
+    #radial-icon {
+      width: 12px;
+      height: 12px;
+      
+      margin: 2.5%;
+    }
+  }
+
+  &-content {
+    overflow-y: auto;
+  }
+}

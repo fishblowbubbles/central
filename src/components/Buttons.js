@@ -1,5 +1,5 @@
 import React from "react";
-import "../stylesheets/Buttons.css";
+import "../stylesheets/Buttons.less";
 
 export const SquareButton = props => (
   <div id={props.id} className="btn btn-square" onClick={props.handleClick}>

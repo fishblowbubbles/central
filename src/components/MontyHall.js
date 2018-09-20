@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Diamond, Gremlin, Help, Refresh, Secure, Shift } from "grommet-icons";
 import { RectangleButton } from "./Buttons.js";
 import { Slider } from "./Slider.js";
-import "../stylesheets/MontyHall.css";
+import "../stylesheets/MontyHall.less";
 
 export class MontyHall extends Component {
   score = [[0, 0], [0, 0]];

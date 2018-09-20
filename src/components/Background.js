@@ -1,5 +1,5 @@
 import React from "react";
-import "../stylesheets/Background.css";
+import "../stylesheets/Background.less";
 
 export const Background = props => (
   <div

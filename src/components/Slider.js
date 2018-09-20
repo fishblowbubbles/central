@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Next, Previous, Radial, RadialSelected } from "grommet-icons";
 import { SquareButton } from "./Buttons.js";
-import "../stylesheets/Slider.css";
+import "../stylesheets/Slider.less";
 
 export class Slider extends Component {
   state = {

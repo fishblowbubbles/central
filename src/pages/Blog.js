@@ -7,12 +7,12 @@ import {
   SquareButton
 } from "../components/Buttons.js";
 import Posts from "../content/Posts.js";
-import "../stylesheets/Blog.css";
+import "../stylesheets/Blog.less";
 
 export class Blog extends Component {
   state = {
     postsOpen: false,
-    current: Posts[(0, 0)]
+    current: Posts[0].posts[0]
   };
 
   handleLinkClick = (e, x, y) => {
@@ -68,29 +68,27 @@ export class Blog extends Component {
     ));
 
   displayCurrentHero = () => (
-    <div className="blog-center-content">
+    <div className="blog-hero-content">
       <h1>{this.state.current.title}</h1>
       <h3>{this.state.current.description}</h3>
       <h5>{this.state.current.date}</h5>
     </div>
   );
 
-  displayCurrentPost = () => {
-    const content = this.state.current.content;
-    return content.map(section => (
-      <div className="blog-post-section">
-        <div className="blog-post-section-heading">
+  displayCurrentPost = () =>
+    this.state.current.content.map(section => (
+      <div className="blog-post-content-section">
+        <div className="blog-post-content-section-heading">
           <h1>{section.heading}</h1>
         </div>
-        <div className="blog-post-section-text">
+        <div className="blog-post-content-section-text">
           <p>{section.text}</p>
         </div>
-        <div className="blog-post-section-image">
+        <div className="blog-post-content-section-image">
           <img src={section.image} alt="" />
         </div>
       </div>
     ));
-  };
 
   render() {
     const visible = this.state.postsOpen ? "show" : "hide";
@@ -108,14 +106,12 @@ export class Blog extends Component {
             </div>
           </div>
         </div>
-        <div id={visible} className="blog-center">
+        <div id={visible} className="blog-hero">
           {this.displayCurrentHero()}
         </div>
         <div id={visible} className="blog-post">
-          <div className="blog-post-content">
-            {this.displayToggleButton()}
-            {this.displayCurrentPost()}
-          </div>
+          {this.displayToggleButton()}
+          <div className="blog-post-content">{this.displayCurrentPost()}</div>
         </div>
       </div>
     );
