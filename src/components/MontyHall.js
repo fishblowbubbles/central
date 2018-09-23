@@ -6,8 +6,10 @@ import "../stylesheets/MontyHall.less";
 
 export class MontyHall extends Component {
   score = [[0, 0], [0, 0]];
-  doors = [0, 0, 0]; // 0 = gremlin; -1 = opened, gremlin; 1 = diamond
-  selection = -1; // -1 = no selection; index otherwise
+  // 0 = gremlin; -1 = opened, gremlin; 1 = diamond
+  doors = [0, 0, 0];
+  // -1 = no selection; index otherwise
+  selection = -1;
 
   state = {
     stage: 0
@@ -234,7 +236,7 @@ export class MontyHall extends Component {
 const DoorButton = props => (
   <button
     id={props.id}
-    className="btn btn-door"
+    className="door-btn"
     onClick={props.handleClick}
     disabled={props.disabled}
   >

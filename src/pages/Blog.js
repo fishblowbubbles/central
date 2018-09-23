@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import { Book, FormNext } from "grommet-icons";
 import { Accordion } from "../components/Accordion.js";
-import {
-  PanelButton,
-  RectangleButton,
-  SquareButton
-} from "../components/Buttons.js";
+import { Background } from "../components/Background.js";
+import { RectangleButton, SquareButton } from "../components/Buttons.js";
 import Posts from "../content/Posts.js";
 import "../stylesheets/Blog.less";
 
 export class Blog extends Component {
   state = {
     postsOpen: false,
+    numLatest: 4,
     current: Posts[0].posts[0]
   };
 
@@ -46,13 +44,43 @@ export class Blog extends Component {
       />
     );
 
-  /**
-   * TODO : Search categories for n latest posts,
-   * saving their positions in the list this.latest
-   */
-  fetchLatestPosts = n => {};
+  fetchLatestPosts = n => {
+    let all = [];
+    for (let i = 0; i < Posts.length; i++) {
+      let category = Posts[i];
+      let posts = category.posts;
 
-  displayLatestPosts = () => {};
+      for (let j = 0; j < posts.length; j++) {
+        all.push({
+          title: posts[j].title,
+          date: posts[j].date,
+          position: {
+            x: i,
+            y: j
+          }
+        });
+      }
+    }
+
+    all.sort((self, other) => {
+      return -(new Date(self.date) - new Date(other.date));
+    });
+
+    return all.slice(0, n);
+  };
+
+  displayLatestPosts = () => {
+    const latest = this.fetchLatestPosts(this.state.numLatest);
+    return latest.map(post => (
+      <div
+        className="blog-link"
+        onClick={e => this.handleLinkClick(e, post.position.x, post.position.y)}
+      >
+        <p>{post.title}</p>
+        <small>{post.date}</small>
+      </div>
+    ));
+  };
 
   displayAllCategories = () =>
     Posts.map((category, x) => (
@@ -62,7 +90,8 @@ export class Blog extends Component {
             className="blog-link"
             onClick={e => this.handleLinkClick(e, x, y)}
           >
-            {post.title}
+            <p>{post.title}</p>
+            <small>{post.date}</small>
           </div>
         ))}
       </Accordion>
@@ -96,18 +125,25 @@ export class Blog extends Component {
     return (
       <div className="blog">
         <div id={visible} className="blog-navigation">
-          <div className="blog-navigation-accordions">
-            <div className="blog-navigation-latest">
+          <div className="blog-navigation-latest">
+            <div className="blog-navigation-latest-heading">
               <h2>L A T E S T</h2>
+            </div>
+            <div className="blog-navigation-latest-items">
               {this.displayLatestPosts()}
             </div>
-            <div className="blog-navigation-categories">
+          </div>
+          <div className="blog-navigation-categories">
+            <div className="blog-navigation-categories-heading">
               <h2>A L L</h2>
+            </div>
+            <div className="blog-navigation-categories-items">
               {this.displayAllCategories()}
             </div>
           </div>
         </div>
         <div id={visible} className="blog-hero">
+          <Background src="/assets/highwest.jpg" />
           {this.displayCurrentHero()}
         </div>
         <div id={visible} className="blog-post">

@@ -1,8 +1,21 @@
 .btn {
   white-space: pre;
-  height: 48px;
-  display: flex;
+  min-height: 48px;
+  display: grid;
   align-items: center;
+  justify-content: center;
+
+  &.btn-square {
+    width: 48px;
+  }
+  
+  &.btn-panel {
+    padding: 0 1em 0 1em;
+  }
+  
+  &.btn-rectangle {
+    grid-template-columns: 48px auto;
+  }
 
   &:hover {
     color: black;
@@ -10,17 +23,4 @@
   }
 }
 
-.btn-square {
-  width: 48px;
-  justify-content: center;
-}
 
-.btn-panel {
-  padding: 0 1em 0 1em;
-  justify-content: center;
-}
-
-.btn-rectangle {
-  width: auto;
-  padding: 0 1em 0 1em;
-}

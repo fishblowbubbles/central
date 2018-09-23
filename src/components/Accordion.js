@@ -21,9 +21,7 @@ export class Accordion extends Component {
     const visible = this.state.sectionOpen ? "show" : "hide";
     return (
       <div id={this.props.id} className="accordion">
-        <div className="accordion-heading" onClick={this.togglePanel}>
-          {this.props.heading}
-        </div>
+        <PanelButton text={this.props.heading} handleClick={this.togglePanel} />
         <div id={visible} className="accordion-section">
           {this.props.children}
         </div>

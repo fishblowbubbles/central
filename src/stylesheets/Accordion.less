@@ -1,17 +1,15 @@
 .accordion {
-  padding: 1em;
-
+  .btn-panel {
+    text-decoration: underline;
+    padding: 0;
+    justify-content: left;
+  }
+  
   &-section {
-    display: flex;
-    flex-flow: column;
-    
+    display: flex; flex-flow: column;
+
     &#hide {
       display: none;
     }
   }
-
-  &-heading {
-    text-decoration: underline;
-  }
-
 }

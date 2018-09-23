@@ -6,34 +6,51 @@
 
   &-navigation {
     background-color: white;
+    padding: 15vh 0 15vh 0;
     grid-area: nav;
     display: grid;
+    grid-template-areas:
+      "latest"
+      "categories";
+    grid-template-rows: 35vh 35vh;
     transition: width 0.8s ease-in-out;
 
-    h2 {
-      border-width: 0 0 1px 0;
-      border-color: lightgray;
-      border-style: solid;
-      margin: 1em 0 1em 0;
-    }
+    &-latest,
+    &-categories {
+      margin: 0 2em 0 2em;
+      display: flex;
+      flex-flow: column;
 
-    &-accordions {
-      width: 15vw;
-      height: 60vh;
-      overflow-x: hidden;
-      margin: 20vh 5vw 20vh 5vw;
-      display: grid;
-      grid-template-rows: 120px 1fr;
+      &-heading {        
+        border-width: 0 0 1px 0;
+        border-color: lightgray;
+        border-style: solid;
+      }
 
-      #blog-link {
-        height: auto;
-        justify-content: left;
+      &-items {
+        padding-top: 1em;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        .blog-link {
+          height: 48px;
+          display: flex;
+          flex-flow: column;
+          justify-content: center;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
       }
     }
 
-    &-latest,
-    &-category {
-      width: 100%;
+    &-latest {
+      grid-area: latest;
+    }
+
+    &-categories {
+      grid-area: categories;
     }
 
     &#hide {
@@ -84,9 +101,8 @@
 
   &-post {
     background-color: white;
-    padding: 5%;
+    padding: 2em;
     position: relative;
-    z-index: 2;
     grid-area: content;
 
     &-content {
@@ -136,10 +152,10 @@
 
     #posts-open {
       background-color: white;
-      width: 176px;
+      width: 152px;
       position: absolute;
       bottom: 48px;
-      left: -176px;
+      left: -152px;
     }
 
     #posts-close {
