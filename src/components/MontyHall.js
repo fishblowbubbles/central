@@ -16,9 +16,8 @@ import "../stylesheets/MontyHall.less";
 export class MontyHall extends Component {
   score = [[0, 0], [0, 0]];
   numDoors = 3;
-  // 0 = gremlin; -1 = opened, gremlin; 1 = diamond
-  doorValues = [];
-  // -1 = no selection; index otherwise
+
+  doorItems = [];
   selection;
 
   state = {
@@ -61,12 +60,15 @@ export class MontyHall extends Component {
   };
 
   reset = () => {
-    this.doorValues = [];
-    for (let i = 0; i < this.numDoors; i++) this.doorValues.push(0);
+    this.doorItems = [];
+    for (let i = 0; i < this.numDoors; i++) this.doorItems.push({
+      content: "gremlin",
+      status: "closed"
+    });
 
     // pick a random door, and assign the diamond to it
-    let prizePosition = this.randomRange(0, this.doorValues.length);
-    this.doorValues[prizePosition] = 1;
+    let prizePosition = this.randomRange(0, this.doorItems.length);
+    this.doorItems[prizePosition].content = "diamond";
 
     this.selection = -1;
     this.setState({
@@ -91,7 +93,7 @@ export class MontyHall extends Component {
     }
 
     for (let i = 0; i < gremlinsToReveal.length; i++)
-      this.doorValues[gremlinsToReveal[i]] = -1;
+      this.doorItems[gremlinsToReveal[i]].status = "open";
   };
 
   /**
@@ -100,8 +102,8 @@ export class MontyHall extends Component {
    */
   getGremlinPositions = () => {
     let gremlinPositions = [];
-    for (let i = 0; i < this.doorValues.length; i++)
-      if (this.doorValues[i] === 0) gremlinPositions.push(i);
+    for (let i = 0; i < this.doorItems.length; i++)
+      if (this.doorItems[i].content === "gremlin") gremlinPositions.push(i);
     return gremlinPositions;
   };
 
@@ -110,8 +112,8 @@ export class MontyHall extends Component {
    * (there should only be one).
    */
   switchPlayerSelection = () => {
-    for (let i = 0; i < this.doorValues.length; i++)
-      if (this.doorValues[i] !== -1 && i !== this.selection) return i;
+    for (let i = 0; i < this.doorItems.length; i++)
+      if (this.doorItems[i].status !== "open" && i !== this.selection) return i;
   };
 
   /**
@@ -120,10 +122,15 @@ export class MontyHall extends Component {
    * that was made.
    */
   updateScore = choice => {
-    let i = this.doorValues[this.selection] === 1 ? 0 : 1;
+    let i = this.doorItems[this.selection].content === "diamond" ? 0 : 1;
     let j = choice === "stick" ? 0 : 1;
 
     this.score[i][j] += 1;
+    
+    for (let i = 0; i < this.doorItems.length; i++) {
+      this.doorItems[i].status = "open";
+    }
+
     this.setState({
       stage: this.state.stage + 1
     });
@@ -137,17 +144,13 @@ export class MontyHall extends Component {
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
-  whichIcon = value => {
-    let icon = <Help />;
-    if (value === -1) {
-      icon = <Gremlin />;
-    } else if (this.state.stage === 2) {
-      // reveal doors
-      if (value === 0) {
+  whichIcon = item => {
+    let icon = <Help />
+    if (item.status === "open") {
+      if (item.content === "gremlin")
         icon = <Gremlin />;
-      } else if (value === 1) {
+      if (item.content === "diamond")
         icon = <Diamond />;
-      }
     }
     return icon;
   };
@@ -175,7 +178,7 @@ export class MontyHall extends Component {
       return (
         <React.Fragment>
           <h2>
-            {this.doorValues[this.selection] === 1
+            {this.doorItems[this.selection].content === "diamond"
               ? "WELL DONE!"
               : "UGH, GREMLIN!"}
           </h2>
@@ -235,14 +238,14 @@ export class MontyHall extends Component {
           </div>
           <div className="montyhall-interactive-stage">
             <div className="montyhall-interactive-stage-doors">
-              {this.doorValues.map((value, index) => (
+              {this.doorItems.map((item, index) => (
                 <button
                   id={index === this.selection ? "highlight" : ""}
                   className="door-select"
                   onClick={e => this.handleDoorClick(e, index)}
                   disabled={this.state.stage !== 0}
                 >
-                  {this.whichIcon(value)}
+                  {this.whichIcon(item)}
                 </button>
               ))}
             </div>
