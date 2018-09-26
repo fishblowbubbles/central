@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { PanelButton } from "./Buttons.js";
 import "../stylesheets/Accordion.less";
 
 export class Accordion extends Component {

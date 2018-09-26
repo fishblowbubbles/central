@@ -60,7 +60,7 @@ export class MontyHall extends Component {
    */
   openGremlinDoors = () => {
     let gremlinPositions = this.getGremlinPositions();
-    let selectablePositions = [];
+    let selectablePositions = []
 
     // exclude player's selection
     for (let i = 0; i < gremlinPositions.length; i++) {
@@ -88,7 +88,8 @@ export class MontyHall extends Component {
   getGremlinPositions = () => {
     let gremlinPositions = [];
     for (let i = 0; i < this.doors.length; i++) {
-      if (this.doors[i] === 0) gremlinPositions.push(i);
+      if (this.doors[i] === 0) 
+        gremlinPositions.push(i);
     }
     return gremlinPositions;
   };
@@ -148,7 +149,7 @@ export class MontyHall extends Component {
     this.doors.map((value, index) => (
       <button
         id={index === this.selection ? "highlight" : ""}
-        className="btn btn-door"
+        className="door-btn"
         onClick={e => this.handleDoorClick(e, index)}
         disabled={this.state.stage !== 0}
       >
