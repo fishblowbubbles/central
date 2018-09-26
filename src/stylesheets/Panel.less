@@ -1,61 +1,71 @@
 .panel {
-  background-color: #333333;
-  color: white;
-  width: 100vw;
-  height: 100vh;
   position: fixed;
+  z-index: 2;
   top: 0;
   left: 0;
-  z-index: 2;
+
   display: grid;
+
+  width: 100vw;
+  height: 100vh;
+
+  transition: transform 0.2s ease-in-out;
+
+  color: white;
+  background-color: #333;
+
   grid-template-areas:
     "header"
     "navigation"
     "social";
   grid-template-rows:
-    72px
+    auto
     1fr
     auto;
-  transition: transform 0.2s ease-in-out;
-  
+
   &-header {
+    padding: 1em;
+
     grid-area: header;
-    padding: 5%;
   }
-  
+
   &-navigation {
-    overflow-x: hidden;
-    overflow-y: auto;  
-    grid-area: navigation;
     display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    grid-area: navigation;
     flex-flow: column;
     align-items: center;
 
     &-section {
-      border-width: 0 0 1px 0;
-      border-color: lightgray;
-      border-style: solid;
       padding: 1em;
+
+      border-width: 0 0 1px 0;
+      border-style: solid;
+      border-color: lightgray;
     }
   }
 
   &-social {
-    padding: 5%;
-    grid-area: social;
     display: flex;
+
+    padding: 5%;
+
+    grid-area: social;
     align-items: center;
     justify-content: center;
   }
-  
+
   #panel-close {
     float: right;
   }
-  
+
   #panel-link {
     color: lightgray;
     font-size: 1rem;
   }
-  
+
   #panel-link:hover {
     color: white;
   }

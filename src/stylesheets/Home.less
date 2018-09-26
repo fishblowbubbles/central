@@ -1,37 +1,47 @@
 .home {
-  background-color: white;
   display: grid;
+
+  background-color: white;
+
   grid-template-areas:
     "hero"
     "doo-dad";
   grid-template-rows: 100vh;
 
   &-hero {
-    background-color: whitesmoke;
-    text-align: right;
-    grid-area: hero;
     display: flex;
+
+    text-align: right;
+
+    background-color: whitesmoke;
+
+    grid-area: hero;
     flex-flow: column;
     justify-content: center;
 
     &-text {
-      border-width: 0 0 1px 0;
-      border-color: lightgray;
-      border-style: solid;
-      white-space: pre;
-      font-weight: bold;
       font-size: 2rem;
+      font-weight: bold;
+
       margin: 1em;
+
+      white-space: pre;
+
+      border-width: 0 0 1px 0;
+      border-style: solid;
+      border-color: lightgray;
     }
 
     #blog-btn,
     #github-btn {
-      background-color: white;
-      border-width: 1px;
-      border-color: lightgray;
-      border-style: solid;
-      margin: 2em 2em 0 0;
       float: right;
+
+      margin: 2em 2em 0 0;
+
+      border-width: 1px;
+      border-style: solid;
+      border-color: lightgray;
+      background-color: white;
     }
   }
 
@@ -44,6 +54,7 @@
 @media screen and (min-width: 1200px) {
   .home {
     height: 100vh;
+
     grid-template-areas: "hero doo-dad";
     grid-template-columns: 2fr 3fr;
   }

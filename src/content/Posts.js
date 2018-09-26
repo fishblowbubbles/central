@@ -98,19 +98,19 @@ export default [
         content: [
           {
             heading: "The Dormitory Has No Wifi",
-            image: "/assets/hongkong.jpg",
+            image: "assets/hongkong.jpg",
             text:
               "It’s available in the classroom buildings and the library, which is a good reason to take a walk around the large and quaint school compound. However, it meant no more night-time binge-watching of The Food Ranger on YouTube – but there’s no need to, because it’s Taiwan and you can put your slippers on, get out and do the food hunting yourself!"
           },
           {
             heading: "We Could Do With School Bells",
-            image: "/assets/flats.jpg",
+            image: "assets/flats.jpg",
             text:
               "The hourly chime of the school bells takes me back to the Primary school days. It’s the same as from my childhood, and sounds something like this: ding dong ding dooong, ding dong ding dooong. If seven to twelve-year-old kids require help keeping track of time, how much more do us SUTD students need to be reminded that there is a time and place for everything under the skies, and slogging it out in the Fab Lab at four o’clock in the morning is perhaps not the most appropriate thing to be doing at such an hour."
           },
           {
             heading: "Public Bicycles Have Broken Free From Their Docks",
-            image: "/assets/highwest.jpg",
+            image: "assets/highwest.jpg",
             text:
               "A full-scale dockless bike-sharing epidemic has yet to hit Hsinchu, however a handful of radicalized ubikes have cut their tails, put their top-ends together and escaped from their kiosks (bike-sharing is an integral part of the city’s public transport system, but they must be docked at designated locations). Sightings were few and far between, but their appearances are a cause for worry. ubike 17-1 said about the rebels, “These anarchists are uncivilized chaos-mongers with no regard for peace and orderliness. They do not understand that the docks have been put in place for their benefit; a little slice of freedom is a small price to pay for the well-being of our beloved land.” There is hope that the spread of such deviant ideology can be contained, to prevent the city from becoming another Singapore, where many street corners, walkways and grass patches have been plagued by the now-unstoppable oBike (with the occasional ofo Bike or Mobike) infestation."
           }

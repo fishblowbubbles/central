@@ -7,9 +7,10 @@ import Posts from "../content/Posts.js";
 import "../stylesheets/Blog.less";
 
 export class Blog extends Component {
+  numLatest = 4;
+  
   state = {
     postsOpen: false,
-    numLatest: 4,
     current: Posts[0].posts[0]
   };
 
@@ -50,7 +51,7 @@ export class Blog extends Component {
       let category = Posts[i];
       let posts = category.posts;
 
-      for (let j = 0; j < posts.length; j++) {
+      for (let j = 0; j < posts.length; j++)
         all.push({
           title: posts[j].title,
           date: posts[j].date,
@@ -59,19 +60,15 @@ export class Blog extends Component {
             y: j
           }
         });
-      }
     }
 
-    all.sort((self, other) => {
-      return -(new Date(self.date) - new Date(other.date));
-    });
+    all.sort((self, other) => -(new Date(self.date) - new Date(other.date)));
 
     return all.slice(0, n);
   };
 
-  displayLatestPosts = () => {
-    const latest = this.fetchLatestPosts(this.state.numLatest);
-    return latest.map(post => (
+  displayLatestPosts = () => 
+    this.fetchLatestPosts(this.numLatest).map(post => (
       <div
         className="blog-link"
         onClick={e => this.handleLinkClick(e, post.position.x, post.position.y)}
@@ -80,7 +77,6 @@ export class Blog extends Component {
         <small>{post.date}</small>
       </div>
     ));
-  };
 
   displayAllCategories = () =>
     Posts.map((category, x) => (

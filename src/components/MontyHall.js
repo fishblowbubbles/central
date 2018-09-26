@@ -17,12 +17,12 @@ export class MontyHall extends Component {
   score = [[0, 0], [0, 0]];
   numDoors = 3;
   // 0 = gremlin; -1 = opened, gremlin; 1 = diamond
-  doors = [];
+  doorValues = [0, 0, 0];
   // -1 = no selection; index otherwise
-  selection;
+  selection = -1;
 
   state = {
-    stage: 0,
+    stage: 0
   };
 
   componentDidMount() {
@@ -51,58 +51,47 @@ export class MontyHall extends Component {
   };
 
   handleAddDoorClick = e => {
-    if (this.numDoors < 6) {
-      this.numDoors += 1;
-      this.reset();
-    }
+    this.numDoors += 1;
+    this.reset();
   };
 
   handleReduceDoorClick = e => {
-    if (this.numDoors > 3) {
-      this.numDoors -= 1;
-      this.reset();
-    }
+    this.numDoors -= 1;
+    this.reset();
   };
 
   reset = () => {
-    this.doors = [];
-    for (let i = 0; i < this.numDoors; i++) this.doors.push(0);
-    this.selection = -1;
+    this.doorValues = [];
+    for (let i = 0; i < this.numDoors; i++) this.doorValues.push(0);
 
-    this.setPrizePosition();
+    // pick a random door, and assign the diamond to it
+    let prizePosition = this.randomRange(0, this.doorValues.length);
+    this.doorValues[prizePosition] = 1;
+    
+    this.selection = -1;
     this.setState({
       stage: 0
     });
   };
-  /**
-   * Picks a random door, and assigns the prize to it.
-   */
-  setPrizePosition = () => {
-    let prizePosition = this.randomRange(0, this.doors.length);
-    this.doors[prizePosition] = 1;
-  };
 
   /**
-   * From the unselected doors, open all but one door,
-   * all of which contain a gremlin.
+   * From the unselected doors, reveal all but one door.
    */
   openGremlinDoors = () => {
-    let gremlinPositions = this.getGremlinPositions();
-    let selectablePositions = [];
+    let gremlinsToReveal = this.getGremlinPositions();
+    let selectionIndex = gremlinsToReveal.indexOf(this.selection);
 
-    // exclude player's selection
-    for (let i = 0; i < gremlinPositions.length; i++) {
-      if (gremlinPositions[i] !== this.selection)
-        selectablePositions.push(gremlinPositions[i]);
+    if (selectionIndex !== -1) {
+      // exclude player's selection
+      gremlinsToReveal.splice(selectionIndex, 1);
+    } else {
+      // keep a gremlin door closed
+      let toLeave = this.randomRange(0, gremlinsToReveal.length);
+      gremlinsToReveal.splice(toLeave, 1);
     }
 
-    if (this.doors[this.selection] === 1) {
-      let toLeave = this.randomRange(0, selectablePositions.length);
-      selectablePositions.splice(toLeave, 1);
-    }
-
-    for (let i = 0; i < selectablePositions.length; i++)
-      this.doors[selectablePositions[i]] = -1;
+    for (let i = 0; i < gremlinsToReveal.length; i++)
+      this.doorValues[gremlinsToReveal[i]] = -1;
   };
 
   /**
@@ -111,9 +100,8 @@ export class MontyHall extends Component {
    */
   getGremlinPositions = () => {
     let gremlinPositions = [];
-    for (let i = 0; i < this.doors.length; i++) {
-      if (this.doors[i] === 0) gremlinPositions.push(i);
-    }
+    for (let i = 0; i < this.doorValues.length; i++)
+      if (this.doorValues[i] === 0) gremlinPositions.push(i);
     return gremlinPositions;
   };
 
@@ -122,8 +110,8 @@ export class MontyHall extends Component {
    * (there should only be one).
    */
   switchPlayerSelection = () => {
-    for (let i = 0; i < this.doors.length; i++) {
-      if (this.doors[i] !== -1 && i !== this.selection) {
+    for (let i = 0; i < this.doorValues.length; i++) {
+      if (this.doorValues[i] !== -1 && i !== this.selection) {
         this.selection = i;
         return;
       }
@@ -136,7 +124,7 @@ export class MontyHall extends Component {
    * that was made.
    */
   updateScore = choice => {
-    let i = this.doors[this.selection] === 1 ? 0 : 1;
+    let i = this.doorValues[this.selection] === 1 ? 0 : 1;
     let j = choice === "stick" ? 0 : 1;
 
     this.score[i][j] += 1;
@@ -157,8 +145,8 @@ export class MontyHall extends Component {
     let icon = <Help />;
     if (value === -1) {
       icon = <Gremlin />;
-      // reveal doors
     } else if (this.state.stage === 2) {
+      // reveal doors
       if (value === 0) {
         icon = <Gremlin />;
       } else if (value === 1) {
@@ -168,63 +156,39 @@ export class MontyHall extends Component {
     return icon;
   };
 
-  displayControls = () => (
-    <React.Fragment>
-      {this.numDoors < 6 ? <SquareButton
-        id="doors-add"
-        icon={<Up />}
-        handleClick={this.handleAddDoorClick}
-      /> : ""}
-      <h3>{this.numDoors}</h3>
-      {this.numDoors > 3 ? <SquareButton
-        id="doors-reduce"
-        icon={<Down />}
-        handleClick={this.handleReduceDoorClick}
-      /> : ""}
-    </React.Fragment>
-  );
-
-  displayDoorButtons = () =>
-    this.doors.map((value, index) => (
-      <button
-        id={index === this.selection ? "highlight" : ""}
-        className="btn-door"
-        onClick={e => this.handleDoorClick(e, index)}
-        disabled={this.state.stage !== 0}
-      >
-        {this.whichIcon(value)}
-      </button>
-    ));
-
   displayCurrentInstruction = () => {
     if (this.state.stage === 0) return <h2>{"PICK A DOOR"}</h2>;
     if (this.state.stage === 1)
       return (
         <React.Fragment>
           <RectangleButton
-            id="montyhall-select"
+            id="instruction-select"
             icon={<Secure />}
             text="S T I C K"
             handleClick={this.handleStickClick}
           />
           <RectangleButton
-            id="montyhall-select"
+            id="instruction-select"
             icon={<Shift />}
             text="S W I T C H"
             handleClick={this.handleSwitchClick}
           />
         </React.Fragment>
       );
-    if (this.state.stage === 2) {
-      return this.doors[this.selection] === 1 ? (
-        <PlayAgain text="WELL DONE!" handleClick={this.handlePlayAgainClick} />
-      ) : (
-        <PlayAgain
-          text="UGH, GREMLIN!"
-          handleClick={this.handlePlayAgainClick}
-        />
+    if (this.state.stage === 2)
+      return (
+        <React.Fragment>
+          <h2>
+            {this.doorValues[this.selection] === 1 ? "WELL DONE!" : "UGH, GREMLIN!"}
+          </h2>
+          <RectangleButton
+            id="instruction-select"
+            icon={<Refresh />}
+            text="P L A Y    A G A I N"
+            handleClick={this.handlePlayAgainClick}
+          />
+        </React.Fragment>
       );
-    }
   };
 
   render() {
@@ -271,12 +235,39 @@ export class MontyHall extends Component {
               </tbody>
             </table>
           </div>
-          <div className="montyhall-interactive-buttons">
-            <div className="montyhall-interactive-buttons-doors">
-              {this.displayDoorButtons()}
+          <div className="montyhall-interactive-stage">
+            <div className="montyhall-interactive-stage-doors">
+              {this.doorValues.map((value, index) => (
+                <button
+                  id={index === this.selection ? "highlight" : ""}
+                  className="door-select"
+                  onClick={e => this.handleDoorClick(e, index)}
+                  disabled={this.state.stage !== 0}
+                >
+                  {this.whichIcon(value)}
+                </button>
+              ))}
             </div>
-            <div className="montyhall-interactive-buttons-controls">
-              {this.displayControls()}
+            <div className="montyhall-interactive-stage-controls">
+              {this.numDoors < 6 ? (
+                <SquareButton
+                  id="control-add"
+                  icon={<Up />}
+                  handleClick={this.handleAddDoorClick}
+                />
+              ) : (
+                ""
+              )}
+              <h3>{this.numDoors}</h3>
+              {this.numDoors > 3 ? (
+                <SquareButton
+                  id="control-reduce"
+                  icon={<Down />}
+                  handleClick={this.handleReduceDoorClick}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className="montyhall-interactive-instructions">
@@ -287,18 +278,6 @@ export class MontyHall extends Component {
     );
   }
 }
-
-const PlayAgain = props => (
-  <React.Fragment>
-    <h2>{props.text}</h2>
-    <RectangleButton
-      id="montyhall-select"
-      icon={<Refresh />}
-      text="P L A Y    A G A I N"
-      handleClick={props.handleClick}
-    />
-  </React.Fragment>
-);
 
 const SliderContent = [
   {

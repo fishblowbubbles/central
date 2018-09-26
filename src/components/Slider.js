@@ -9,19 +9,17 @@ export class Slider extends Component {
   };
 
   handleNextClick = e => {
-    if (this.state.position + 1 < this.props.children.length) {
+    if (this.state.position + 1 < this.props.children.length)
       this.setState({
         position: this.state.position + 1
       });
-    }
   };
 
   handlePreviousClick = e => {
-    if (this.state.position > 0) {
+    if (this.state.position > 0)
       this.setState({
         position: this.state.position - 1
       });
-    }
   };
 
   displayNextArrow = () =>
