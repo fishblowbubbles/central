@@ -1,22 +1,32 @@
 import React, { Component } from "react";
-import { Diamond, Gremlin, Help, Refresh, Secure, Shift } from "grommet-icons";
-import { RectangleButton } from "./Buttons.js";
+import {
+  Diamond,
+  Down,
+  Gremlin,
+  Help,
+  Refresh,
+  Secure,
+  Shift,
+  Up
+} from "grommet-icons";
+import { RectangleButton, SquareButton } from "./Buttons.js";
 import { Slider } from "./Slider.js";
 import "../stylesheets/MontyHall.less";
 
 export class MontyHall extends Component {
   score = [[0, 0], [0, 0]];
+  numDoors = 3;
   // 0 = gremlin; -1 = opened, gremlin; 1 = diamond
-  doors = [0, 0, 0];
+  doors = [];
   // -1 = no selection; index otherwise
-  selection = -1;
+  selection;
 
   state = {
-    stage: 0
+    stage: 0,
   };
 
   componentDidMount() {
-    this.setPrizePosition();
+    this.reset();
   }
 
   handleDoorClick = (e, index) => {
@@ -37,7 +47,26 @@ export class MontyHall extends Component {
   };
 
   handlePlayAgainClick = e => {
-    this.doors = [0, 0, 0];
+    this.reset();
+  };
+
+  handleAddDoorClick = e => {
+    if (this.numDoors < 6) {
+      this.numDoors += 1;
+      this.reset();
+    }
+  };
+
+  handleReduceDoorClick = e => {
+    if (this.numDoors > 3) {
+      this.numDoors -= 1;
+      this.reset();
+    }
+  };
+
+  reset = () => {
+    this.doors = [];
+    for (let i = 0; i < this.numDoors; i++) this.doors.push(0);
     this.selection = -1;
 
     this.setPrizePosition();
@@ -45,7 +74,6 @@ export class MontyHall extends Component {
       stage: 0
     });
   };
-
   /**
    * Picks a random door, and assigns the prize to it.
    */
@@ -60,7 +88,7 @@ export class MontyHall extends Component {
    */
   openGremlinDoors = () => {
     let gremlinPositions = this.getGremlinPositions();
-    let selectablePositions = []
+    let selectablePositions = [];
 
     // exclude player's selection
     for (let i = 0; i < gremlinPositions.length; i++) {
@@ -68,17 +96,13 @@ export class MontyHall extends Component {
         selectablePositions.push(gremlinPositions[i]);
     }
 
-    if (selectablePositions.length === 1) {
-      // host has only one option
-      this.doors[selectablePositions[0]] = -1
-    } else {
-      // don't open this door
+    if (this.doors[this.selection] === 1) {
       let toLeave = this.randomRange(0, selectablePositions.length);
-      for (let i = 0; i < selectablePositions.length; i++) {
-        if (i !== toLeave) 
-          this.doors[selectablePositions[i]] = -1;
-      }
+      selectablePositions.splice(toLeave, 1);
     }
+
+    for (let i = 0; i < selectablePositions.length; i++)
+      this.doors[selectablePositions[i]] = -1;
   };
 
   /**
@@ -88,8 +112,7 @@ export class MontyHall extends Component {
   getGremlinPositions = () => {
     let gremlinPositions = [];
     for (let i = 0; i < this.doors.length; i++) {
-      if (this.doors[i] === 0) 
-        gremlinPositions.push(i);
+      if (this.doors[i] === 0) gremlinPositions.push(i);
     }
     return gremlinPositions;
   };
@@ -134,7 +157,7 @@ export class MontyHall extends Component {
     let icon = <Help />;
     if (value === -1) {
       icon = <Gremlin />;
-    // reveal doors
+      // reveal doors
     } else if (this.state.stage === 2) {
       if (value === 0) {
         icon = <Gremlin />;
@@ -145,11 +168,27 @@ export class MontyHall extends Component {
     return icon;
   };
 
+  displayControls = () => (
+    <React.Fragment>
+      {this.numDoors < 6 ? <SquareButton
+        id="doors-add"
+        icon={<Up />}
+        handleClick={this.handleAddDoorClick}
+      /> : ""}
+      <h3>{this.numDoors}</h3>
+      {this.numDoors > 3 ? <SquareButton
+        id="doors-reduce"
+        icon={<Down />}
+        handleClick={this.handleReduceDoorClick}
+      /> : ""}
+    </React.Fragment>
+  );
+
   displayDoorButtons = () =>
     this.doors.map((value, index) => (
       <button
         id={index === this.selection ? "highlight" : ""}
-        className="door-btn"
+        className="btn-door"
         onClick={e => this.handleDoorClick(e, index)}
         disabled={this.state.stage !== 0}
       >
@@ -232,8 +271,13 @@ export class MontyHall extends Component {
               </tbody>
             </table>
           </div>
-          <div className="montyhall-interactive-doors">
-            {this.displayDoorButtons()}
+          <div className="montyhall-interactive-buttons">
+            <div className="montyhall-interactive-buttons-doors">
+              {this.displayDoorButtons()}
+            </div>
+            <div className="montyhall-interactive-buttons-controls">
+              {this.displayControls()}
+            </div>
           </div>
           <div className="montyhall-interactive-instructions">
             {this.displayCurrentInstruction()}
@@ -275,8 +319,10 @@ const SliderContent = [
   {
     heading: "T H E    S O L U T I O N",
     content: [
-      "Switching doubles your chance of winning. The host is the difference maker here - it (in this case, the computer) knows where the prize is, and your initial choice determines which door it reveals to you.",
-      "Another explanation is this: at the start, the door that you pick has a 1/3 chance of containing the diamond; the other 2 doors will have a combined chance of 2/3. However, once the host opens a door with the gremlin, its probability is now 0, but the combined probability does not change. The remaining door, which you did not choose, now has a probability of 2/3!"
+      "Switching doubles your chance of winning. The host is the difference maker here - it (in this case, the computer) knows where the prize is, and your initial choice determines which door it reveals to you, providing valuable information as to where the prize is located.",
+      "More specifically, the door that you choose at the start has a 1/3 chance of containing the diamond; the other 2 doors will have a combined chance of 2/3.",
+      "However, once the host opens a door with the gremlin, its probability is now 0, but the combined probability does not change. The remaining door, which you did not choose, now has a probability of 2/3!",
+      "When there are more doors, the same applies - for 4 doors, switching will give you a probability of 3/4, and for 5 doors, it is 4/5, and so on."
     ]
   }
 ];
