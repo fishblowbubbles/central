@@ -17,9 +17,9 @@ export class MontyHall extends Component {
   score = [[0, 0], [0, 0]];
   numDoors = 3;
   // 0 = gremlin; -1 = opened, gremlin; 1 = diamond
-  doorValues = [0, 0, 0];
+  doorValues = [];
   // -1 = no selection; index otherwise
-  selection = -1;
+  selection;
 
   state = {
     stage: 0
@@ -42,7 +42,7 @@ export class MontyHall extends Component {
   };
 
   handleSwitchClick = e => {
-    this.switchPlayerSelection();
+    this.selection = this.switchPlayerSelection();
     this.updateScore("switch");
   };
 
@@ -67,7 +67,7 @@ export class MontyHall extends Component {
     // pick a random door, and assign the diamond to it
     let prizePosition = this.randomRange(0, this.doorValues.length);
     this.doorValues[prizePosition] = 1;
-    
+
     this.selection = -1;
     this.setState({
       stage: 0
@@ -110,12 +110,8 @@ export class MontyHall extends Component {
    * (there should only be one).
    */
   switchPlayerSelection = () => {
-    for (let i = 0; i < this.doorValues.length; i++) {
-      if (this.doorValues[i] !== -1 && i !== this.selection) {
-        this.selection = i;
-        return;
-      }
-    }
+    for (let i = 0; i < this.doorValues.length; i++)
+      if (this.doorValues[i] !== -1 && i !== this.selection) return i;
   };
 
   /**
@@ -179,7 +175,9 @@ export class MontyHall extends Component {
       return (
         <React.Fragment>
           <h2>
-            {this.doorValues[this.selection] === 1 ? "WELL DONE!" : "UGH, GREMLIN!"}
+            {this.doorValues[this.selection] === 1
+              ? "WELL DONE!"
+              : "UGH, GREMLIN!"}
           </h2>
           <RectangleButton
             id="instruction-select"

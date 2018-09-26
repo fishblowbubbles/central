@@ -22,39 +22,6 @@ export class Slider extends Component {
       });
   };
 
-  displayNextArrow = () =>
-    this.state.position + 1 < this.props.children.length ? (
-      <SquareButton
-        id="next-arrow"
-        icon={<Next />}
-        handleClick={this.handleNextClick}
-      />
-    ) : (
-      ""
-    );
-
-  displayPreviousArrow = () =>
-    this.state.position > 0 ? (
-      <SquareButton
-        id="prev-arrow"
-        icon={<Previous />}
-        handleClick={this.handlePreviousClick}
-      />
-    ) : (
-      ""
-    );
-
-  displayNavigationIndicator = () =>
-    React.Children.map(
-      this.props.children,
-      (item, index) =>
-        index === this.state.position ? (
-          <RadialSelected id="radial-icon" />
-        ) : (
-          <Radial id="radial-icon" />
-        )
-    );
-
   render() {
     return (
       <div id={this.props.id} className="slider">
@@ -64,11 +31,35 @@ export class Slider extends Component {
           })}
         </div>
         <div className="slider-navigation">
-          {this.displayPreviousArrow()}
+          {this.state.position > 0 ? (
+            <SquareButton
+              id="prev-arrow"
+              icon={<Previous />}
+              handleClick={this.handlePreviousClick}
+            />
+          ) : (
+            ""
+          )}
           <div className="slider-navigation-indicator">
-            {this.displayNavigationIndicator()}
+            {React.Children.map(
+              this.props.children,
+              (item, index) =>
+                index === this.state.position ? (
+                  <RadialSelected id="radial-icon" />
+                ) : (
+                  <Radial id="radial-icon" />
+                )
+            )}
           </div>
-          {this.displayNextArrow()}
+          {this.state.position + 1 < this.props.children.length ? (
+            <SquareButton
+              id="next-arrow"
+              icon={<Next />}
+              handleClick={this.handleNextClick}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );

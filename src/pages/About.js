@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Construction } from "../components/Error.js";
 
 export const About = () => (
