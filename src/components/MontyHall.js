@@ -21,7 +21,7 @@ export class MontyHall extends Component {
 
   handleDoorClick = (e, index) => {
     this.selection = index;
-    this.openGremlinDoor();
+    this.openGremlinDoors();
     this.setState({
       stage: this.state.stage + 1
     });
@@ -55,21 +55,30 @@ export class MontyHall extends Component {
   };
 
   /**
-   * From the unselected doors, randomly choose and reveal
-   * one that contains a gremlin.
+   * From the unselected doors, open all but one door,
+   * all of which contain a gremlin.
    */
-  openGremlinDoor = () => {
+  openGremlinDoors = () => {
     let gremlinPositions = this.getGremlinPositions();
     let selectablePositions = [];
 
+    // exclude player's selection
     for (let i = 0; i < gremlinPositions.length; i++) {
       if (gremlinPositions[i] !== this.selection)
         selectablePositions.push(gremlinPositions[i]);
     }
 
-    let hostSelection = this.randomRange(0, selectablePositions.length);
-    let toOpen = selectablePositions[hostSelection];
-    this.doors[toOpen] = -1;
+    if (selectablePositions.length === 1) {
+      // host has only one option
+      this.doors[selectablePositions[0]] = -1
+    } else {
+      // don't open this door
+      let toLeave = this.randomRange(0, selectablePositions.length);
+      for (let i = 0; i < selectablePositions.length; i++) {
+        if (i !== toLeave) 
+          this.doors[selectablePositions[i]] = -1;
+      }
+    }
   };
 
   /**
@@ -124,7 +133,7 @@ export class MontyHall extends Component {
     let icon = <Help />;
     if (value === -1) {
       icon = <Gremlin />;
-      // reveal doors
+    // reveal doors
     } else if (this.state.stage === 2) {
       if (value === 0) {
         icon = <Gremlin />;
@@ -137,13 +146,14 @@ export class MontyHall extends Component {
 
   displayDoorButtons = () =>
     this.doors.map((value, index) => (
-      <DoorButton
+      <button
         id={index === this.selection ? "highlight" : ""}
-        icon={this.whichIcon(value)}
-        stage={this.state.stage}
-        handleClick={e => this.handleDoorClick(e, index)}
+        className="btn btn-door"
+        onClick={e => this.handleDoorClick(e, index)}
         disabled={this.state.stage !== 0}
-      />
+      >
+        {this.whichIcon(value)}
+      </button>
     ));
 
   displayCurrentInstruction = () => {
@@ -232,17 +242,6 @@ export class MontyHall extends Component {
     );
   }
 }
-
-const DoorButton = props => (
-  <button
-    id={props.id}
-    className="door-btn"
-    onClick={props.handleClick}
-    disabled={props.disabled}
-  >
-    {props.icon}
-  </button>
-);
 
 const PlayAgain = props => (
   <React.Fragment>
