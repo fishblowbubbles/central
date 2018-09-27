@@ -3,6 +3,7 @@ import { Book, FormNext } from "grommet-icons";
 import { Accordion } from "../components/Accordion.js";
 import { Background } from "../components/Background.js";
 import { RectangleButton, SquareButton } from "../components/Buttons.js";
+import { Slider } from "../components/Slider.js";
 import Posts from "../content/Posts.js";
 import "../stylesheets/Blog.less";
 
@@ -99,7 +100,7 @@ export class Blog extends Component {
           </div>
         </div>
         <div id={visible} className="blog-hero">
-          <Background src="/assets/highwest.jpg" />
+          <Background src={this.state.current.thumbnail} />
           <div className="blog-hero-content">
             <h1>{this.state.current.title}</h1>
             <h3>{this.state.current.description}</h3>
@@ -130,9 +131,14 @@ export class Blog extends Component {
                 <div className="blog-post-content-section-text">
                   <p>{section.text}</p>
                 </div>
-                <div className="blog-post-content-section-image">
-                  <img src={section.image} alt="" />
-                </div>
+                <Slider id="image-slider">
+                  {section.images.map(image => (
+                    <div className="slider-image">
+                      <img src={image.src} />
+                      <div className="slider-image-caption">{image.caption}</div>
+                    </div>
+                  ))}
+                </Slider>
               </div>
             ))}
           </div>
