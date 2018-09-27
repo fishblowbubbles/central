@@ -1,6 +1,6 @@
 import React from "react";
 import { Paint } from "grommet-icons";
-import "../stylesheets/Error.css";
+import "../stylesheets/Error.less";
 
 export const Construction = () => (
   <div className="under-construction">

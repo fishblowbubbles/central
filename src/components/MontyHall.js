@@ -61,10 +61,11 @@ export class MontyHall extends Component {
 
   reset = () => {
     this.doorItems = [];
-    for (let i = 0; i < this.numDoors; i++) this.doorItems.push({
-      content: "gremlin",
-      status: "closed"
-    });
+    for (let i = 0; i < this.numDoors; i++)
+      this.doorItems.push({
+        content: "gremlin",
+        status: "closed"
+      });
 
     // pick a random door, and assign the diamond to it
     let prizePosition = this.randomRange(0, this.doorItems.length);
@@ -126,7 +127,7 @@ export class MontyHall extends Component {
     let j = choice === "stick" ? 0 : 1;
 
     this.score[i][j] += 1;
-    
+
     for (let i = 0; i < this.doorItems.length; i++) {
       this.doorItems[i].status = "open";
     }
@@ -145,51 +146,12 @@ export class MontyHall extends Component {
   };
 
   whichIcon = item => {
-    let icon = <Help />
+    let icon = <Help />;
     if (item.status === "open") {
-      if (item.content === "gremlin")
-        icon = <Gremlin />;
-      if (item.content === "diamond")
-        icon = <Diamond />;
+      if (item.content === "gremlin") icon = <Gremlin />;
+      if (item.content === "diamond") icon = <Diamond />;
     }
     return icon;
-  };
-
-  displayCurrentInstruction = () => {
-    if (this.state.stage === 0) return <h2>{"PICK A DOOR"}</h2>;
-    if (this.state.stage === 1)
-      return (
-        <React.Fragment>
-          <RectangleButton
-            id="instruction-select"
-            icon={<Secure />}
-            text="S T I C K"
-            handleClick={this.handleStickClick}
-          />
-          <RectangleButton
-            id="instruction-select"
-            icon={<Shift />}
-            text="S W I T C H"
-            handleClick={this.handleSwitchClick}
-          />
-        </React.Fragment>
-      );
-    if (this.state.stage === 2)
-      return (
-        <React.Fragment>
-          <h2>
-            {this.doorItems[this.selection].content === "diamond"
-              ? "WELL DONE!"
-              : "UGH, GREMLIN!"}
-          </h2>
-          <RectangleButton
-            id="instruction-select"
-            icon={<Refresh />}
-            text="P L A Y    A G A I N"
-            handleClick={this.handlePlayAgainClick}
-          />
-        </React.Fragment>
-      );
   };
 
   render() {
@@ -272,7 +234,38 @@ export class MontyHall extends Component {
             </div>
           </div>
           <div className="montyhall-interactive-instructions">
-            {this.displayCurrentInstruction()}
+            {this.state.stage === 0 ? (
+              <h2>PICK A DOOR</h2>
+            ) : this.state.stage === 1 ? (
+              <React.Fragment>
+                <RectangleButton
+                  id="instruction-select"
+                  icon={<Secure />}
+                  text="S T I C K"
+                  handleClick={this.handleStickClick}
+                />
+                <RectangleButton
+                  id="instruction-select"
+                  icon={<Shift />}
+                  text="S W I T C H"
+                  handleClick={this.handleSwitchClick}
+                />
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <h2>
+                  {this.doorItems[this.selection].content === "diamond"
+                    ? "WELL DONE!"
+                    : "UGH, GREMLIN!"}
+                </h2>
+                <RectangleButton
+                  id="instruction-select"
+                  icon={<Refresh />}
+                  text="P L A Y    A G A I N"
+                  handleClick={this.handlePlayAgainClick}
+                />
+              </React.Fragment>
+            )}
           </div>
         </div>
       </div>
