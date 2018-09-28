@@ -1,11 +1,12 @@
 .blog {
   display: grid;
 
-  grid-template-areas: "nav center content";
+  grid-template-areas: "nav hero content";
   grid-template-rows: 100vh;
 
   &-navigation {
     display: grid;
+    overflow-x: hidden;
     overflow-y: auto;
 
     padding: 80px 0 80px 0;
@@ -86,31 +87,51 @@
 
     transition: width 0.5s ease-in-out;
 
-    background-color: black;
+    background-color: whitesmoke;
 
-    grid-area: center;
+    grid-area: hero;
     align-items: center;
+    justify-content: start;
 
     &-content {
-      z-index: 1;
+      position: relative;
 
-      display: grid;
+      display: flex;
 
-      max-width: 35vw;
+      width: 20vw;
+      height: 80vh;
 
-      grid-template-columns: 1fr;
-      align-items: flex-end;
+      flex-flow: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+
+      img {
+        width: 20vw;
+
+        object-fit: cover;
+      }
 
       h1 {
-        font-family: "Rubik Mono One", sans-serif;
-        font-size: 2.5rem;
-        font-weight: bold;
+        border-width: 0 0 1px 0;
+        border-style: solid;
+        border-color: lightgray;
+      }
+
+      h3 {
+        text-align: justify;
+      }
+
+      #post-open {
+        border-width: 1px;
+        border-style: solid;
+        border-color: lightgray;
+        background-color: white;
+
+        align-self: flex-end;
       }
 
       * {
         margin: 2.5% 0;
-
-        color: white;
       }
     }
 
@@ -141,20 +162,18 @@
       &-section {
         display: grid;
 
-        margin: 2em;
-
         grid-template-areas:
           "heading slider"
           "text slider";
         grid-template-rows:
           auto
           1fr;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
 
         &-heading {
           display: flex;
 
-          margin: 1em;
+          margin: 2em 2em 0 2em;
 
           border-width: 0 0 1px 0;
           border-style: solid;
@@ -164,7 +183,7 @@
         }
 
         &-text {
-          padding: 1em;
+          padding: 2em;
 
           text-align: justify;
 
@@ -172,12 +191,14 @@
         }
 
         #image-slider {
+          padding: 2em;
+
           grid-area: slider;
 
           .slider-content {
             display: flex;
 
-            padding: 1em 0;
+            margin: 1em 0;
 
             align-items: center;
 
@@ -191,16 +212,16 @@
 
               img {
                 width: 100%;
-                height: 280px;
+                height: 240px;
 
-                object-fit: cover;
+                object-fit: contain;
               }
 
               &-caption {
                 padding: 1em;
 
                 text-align: justify;
-                
+
                 color: whitesmoke;
                 background-color: #333333;
               }
@@ -210,22 +231,12 @@
       }
     }
 
-    #posts-open,
-    #posts-close {
+    #post-close {
       position: absolute;
-      bottom: 48px;
+      top: 50%;
+      left: -48px;
 
       background-color: white;
-    }
-
-    #posts-open {
-      left: -152px;
-
-      width: 152px;
-    }
-
-    #posts-close {
-      left: -48px;
     }
   }
 }

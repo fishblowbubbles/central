@@ -13,9 +13,6 @@
     400px;
 
   &-heading {
-    font-family: "Rubik Mono One", sans-serif;
-    font-size: 2.5rem;
-
     display: flex;
     
     padding: 1em;
@@ -87,7 +84,7 @@
         margin: 1em;
 
         grid-area: doors;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
         grid-gap: 1em;
 
         .door-select {
@@ -156,8 +153,7 @@
       justify-content: center;
 
       h2 {
-        font-family: "Rubik Mono One", sans-serif;
-        font-weight: normal;
+        font-family: "Limelight", cursive;
       }
 
       #instruction-stickswitch {

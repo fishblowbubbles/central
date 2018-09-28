@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Book, FormNext } from "grommet-icons";
 import { Accordion } from "../components/Accordion.js";
-import { Background } from "../components/Background.js";
 import { RectangleButton, SquareButton } from "../components/Buttons.js";
 import { Slider } from "../components/Slider.js";
 import Posts from "../content/Posts.js";
@@ -9,7 +8,8 @@ import "../stylesheets/Blog.less";
 
 export class Blog extends Component {
   state = {
-    postsOpen: false,
+    postOpen: false,
+    category: Posts[0].name,
     current: Posts[0].posts[0],
     numLatest: 4
   };
@@ -19,11 +19,21 @@ export class Blog extends Component {
     const post = category.posts[y];
 
     this.setState({
+      category: category.name,
       current: post
     });
   };
 
-  handleShowMoreClick = () => {
+  handleReadClick = e => {
+    if (!this.state.postOpen) this.togglePost();
+    e.stopPropagation();
+  };
+
+  handleHeroClick = e => {
+    if (this.state.postOpen) this.togglePost();
+  };
+
+  handleShowMoreClick = e => {
     this.setState({
       numLatest: this.state.numLatest + 4
     });
@@ -31,7 +41,7 @@ export class Blog extends Component {
 
   togglePost = () => {
     this.setState({
-      postsOpen: !this.state.postsOpen
+      postOpen: !this.state.postOpen
     });
   };
 
@@ -56,7 +66,7 @@ export class Blog extends Component {
   };
 
   render() {
-    const visible = this.state.postsOpen ? "show" : "hide";
+    const visible = this.state.postOpen ? "show" : "hide";
     return (
       <div className="blog">
         <div id={visible} className="blog-navigation">
@@ -66,15 +76,13 @@ export class Blog extends Component {
             </div>
             <div className="blog-navigation-latest-items">
               {this.fetchLatestPosts(this.state.numLatest).map(post => (
-                <div
-                  className="blog-link"
-                  onClick={e =>
+                <PostLink
+                  title={post.title}
+                  date={post.date}
+                  handleClick={e =>
                     this.handleLinkClick(e, post.position.x, post.position.y)
                   }
-                >
-                  <p>{post.title}</p>
-                  <small>{post.date}</small>
-                </div>
+                />
               ))}
             </div>
           </div>
@@ -86,47 +94,46 @@ export class Blog extends Component {
               {Posts.map((category, x) => (
                 <Accordion heading={category.name}>
                   {category.posts.map((post, y) => (
-                    <div
-                      className="blog-link"
-                      onClick={e => this.handleLinkClick(e, x, y)}
-                    >
-                      <p>{post.title}</p>
-                      <small>{post.date}</small>
-                    </div>
+                    <PostLink
+                      title={post.title}
+                      date={post.date}
+                      handleClick={e => this.handleLinkClick(e, x, y)}
+                    />
                   ))}
                 </Accordion>
               ))}
             </div>
           </div>
         </div>
-        <div id={visible} className="blog-hero">
-          <Background src={this.state.current.thumbnail} />
+        <div id={visible} className="blog-hero" onClick={this.handleHeroClick}>
           <div className="blog-hero-content">
+            <img src={this.state.current.thumbnail} />
             <h1>{this.state.current.title}</h1>
-            <h3>{this.state.current.description}</h3>
-            <h5>{this.state.current.date}</h5>
+            <h4>{this.state.category}</h4>
+            <small>{this.state.current.date}</small>
+            <RectangleButton
+              id="post-open"
+              icon={<Book />}
+              text="R E A D"
+              handleClick={this.handleReadClick}
+            />
           </div>
         </div>
         <div id={visible} className="blog-post">
-          {this.state.postsOpen ? (
+          {this.state.postOpen ? (
             <SquareButton
-              id="posts-close"
+              id="post-close"
               icon={<FormNext />}
               handleClick={this.togglePost}
             />
           ) : (
-            <RectangleButton
-              id="posts-open"
-              icon={<Book />}
-              text="R E A D"
-              handleClick={this.togglePost}
-            />
+            ""
           )}
           <div className="blog-post-content">
             {this.state.current.content.map(section => (
               <div className="blog-post-content-section">
                 <div className="blog-post-content-section-heading">
-                  <h2>{section.heading}</h2>
+                  <h3>{section.heading}</h3>
                 </div>
                 <div className="blog-post-content-section-text">
                   <p>{section.text}</p>
@@ -135,7 +142,9 @@ export class Blog extends Component {
                   {section.images.map(image => (
                     <div className="slider-image">
                       <img src={image.src} />
-                      <div className="slider-image-caption">{image.caption}</div>
+                      <div className="slider-image-caption">
+                        {image.caption}
+                      </div>
                     </div>
                   ))}
                 </Slider>
@@ -147,3 +156,10 @@ export class Blog extends Component {
     );
   }
 }
+
+const PostLink = props => (
+  <div id={props.id} className="blog-link" onClick={props.handleClick}>
+    <p>{props.title}</p>
+    <small>{props.date}</small>
+  </div>
+);

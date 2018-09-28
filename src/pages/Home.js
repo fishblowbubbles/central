@@ -17,7 +17,7 @@ export const Home = () => {
           />
         </Link>
         <div className="home-hero-text">
-          O R    C H E C K    O U T<br />T H I S    D O O - D A D
+          <h2>O R    C H E C K    O U T<br />T H I S    D O O - D A D</h2>
         </div>
         <a href="https://github.com/fishblowbubbles/central" target="_blank">
           <RectangleButton

@@ -157,7 +157,7 @@ export class MontyHall extends Component {
   render() {
     return (
       <div id={this.props.id} className="montyhall">
-        <div className="montyhall-heading">Monty Hall Simulator</div>
+        <div className="montyhall-heading"><h1>Monty Hall Simulator</h1></div>
         <Slider id="montyhall-slider">
           {SliderContent.map(item => (
             <div className="montyhall-slider-description">
