@@ -4,23 +4,23 @@ export default [
     posts: [
       {
         title: "Last Things",
-        thumbnail: "assets/shifen-falls.jpg",
+        thumbnail: "/assets/shifen-falls.jpg",
         date: "5 August 2017",
         content: [
           {
             heading: "Google Has Better Pictures",
             images: [
               {
-                src: "assets/xiao-bai.jpg",
+                src: "/assets/xiao-bai.jpg",
                 caption:
                   "小白, a stray dog, led us through the forest to a decent view."
               },
               {
-                src: "assets/mountain-crab.jpg",
+                src: "/assets/mountain-crab.jpg",
                 caption: "A tiny mountain crab."
               },
               {
-                src: "assets/beluga.jpg",
+                src: "/assets/beluga.jpg",
                 caption:
                   "A beluga from the National Museum of Marine Biology and Aquarium."
               }
@@ -32,12 +32,12 @@ export default [
             heading: "Summer Breezes Can Get Really Strong",
             images: [
               {
-                src: "assets/typhoon-shopping.jpg",
+                src: "/assets/typhoon-shopping.jpg",
                 caption:
                   "Post-storm scenes in Kaohsiung (Part 1): The shopping mall was packed with locals (on a Monday afternoon) making the most of the typhoon holiday."
               },
               {
-                src: "assets/ruifeng-market.jpg",
+                src: "/assets/ruifeng-market.jpg",
                 caption:
                   "Post-storm scenes in Kaohsiung (Part 2): The famous Ruifeng Night Market was strangely quiet as many stalls remained closed."
               }
@@ -49,7 +49,7 @@ export default [
             heading: "The Missing Ingredient",
             images: [
               {
-                src: "assets/pork-noodles.jpg",
+                src: "/assets/pork-noodles.jpg",
                 caption:
                   "It was only after finishing half this bowl of 'noodles in pork thick soup' that I decided that perhaps it was worth a photograph."
               }
@@ -61,12 +61,12 @@ export default [
             heading: "Don't Be A Hero",
             images: [
               {
-                src: "assets/pingxi-mountaintop.jpg",
+                src: "/assets/pingxi-mountaintop.jpg",
                 caption:
                   "Ah Gou, Ah Ba, Ah Zhu and I (from left)."
               },
               {
-                src: "assets/vertical-rocks.jpg",
+                src: "/assets/vertical-rocks.jpg",
                 caption:
                   "Rocks and rope."
               }
@@ -78,14 +78,14 @@ export default [
       },
       {
         title: "Friends And Food",
-        thumbnail: "assets/orientation-dinner.jpg",
+        thumbnail: "/assets/orientation-dinner.jpg",
         date: "29 July 2017",
         content: [
           {
             heading: "Picking a Place to Eat is Difficult Everywhere",
             images: [
               {
-                src: "assets/milo-dave.jpg",
+                src: "/assets/milo-dave.jpg",
                 caption:
                   "Introducing Dave to some of that 'special milk' from back home."
               }
@@ -97,15 +97,15 @@ export default [
             heading: "Drinks are Free Flow",
             images: [
               {
-                src: "assets/strange-bird.jpg",
+                src: "/assets/strange-bird.jpg",
                 caption: "Friend or Food (Part 1): A strange bird."
               },
               {
-                src: "assets/curious-dog.jpg",
+                src: "/assets/curious-dog.jpg",
                 caption: "Friend or Food (Part 2): A curious dog."
               },
               {
-                src: "assets/slug-shower.jpg",
+                src: "/assets/slug-shower.jpg",
                 caption: "Friend or Food (Part 3): A slug I met in the shower."
               }
             ],
@@ -116,7 +116,7 @@ export default [
             heading: "No Forks Given",
             images: [
               {
-                src: "assets/cai-fan.jpg",
+                src: "/assets/cai-fan.jpg",
                 caption:
                   "Unagi, egg, glass noodles, kang kong and sweet potato rice - all for 65 TWD (approx. 3 SGD)."
               }
@@ -128,18 +128,18 @@ export default [
       },
       {
         title: "Little To See, Much To Love",
-        thumbnail: "assets/east-gate.jpg",
+        thumbnail: "/assets/east-gate.jpg",
         date: "22 July 2017",
         content: [
           {
             heading: "You're Doing Fine, Hsinchu",
             images: [
               {
-                src: "assets/hsinchu-station.jpg",
+                src: "/assets/hsinchu-station.jpg",
                 caption: "Plenty of air and plenty of room."
               },
               {
-                src: "assets/hsinchu-night-market.jpg",
+                src: "/assets/hsinchu-night-market.jpg",
                 caption: "The local night market."
               }
             ],
@@ -150,11 +150,11 @@ export default [
             heading: "You Can Sleep Tight At Night",
             images: [
               {
-                src: "assets/kazua-security.jpg",
+                src: "/assets/kazua-security.jpg",
                 caption: "Ka Zua Security Services guardhouse entrance."
               },
               {
-                src: "assets/purple-heart.jpg",
+                src: "/assets/purple-heart.jpg",
                 caption:
                   "K.I.A - it will be receiving a Purple Heart soon, I think."
               }
@@ -166,11 +166,11 @@ export default [
             heading: "It's All About Learning",
             images: [
               {
-                src: "assets/steam-blocked.jpg",
+                src: "/assets/steam-blocked.jpg",
                 caption: "Don't fret, you won't be losing any MMR in NTHU."
               },
               {
-                src: "assets/analytics-class.jpg",
+                src: "/assets/analytics-class.jpg",
                 caption: "Prof. Soumya demonstrates some code."
               }
             ],
@@ -181,14 +181,14 @@ export default [
       },
       {
         title: "Arrival",
-        thumbnail: "assets/bus-to-taipei.jpg",
+        thumbnail: "/assets/bus-to-taipei.jpg",
         date: "17 July 2017",
         content: [
           {
             heading: "The Dormitory Has No Wifi",
             images: [
               {
-                src: "assets/wifi-zone.jpg",
+                src: "/assets/wifi-zone.jpg",
                 caption:
                   "Outside the newly-renovated library, where the wifi signal is strongest."
               }
@@ -200,7 +200,7 @@ export default [
             heading: "We Could Do With School Bells",
             images: [
               {
-                src: "assets/bus-stop.jpg",
+                src: "/assets/bus-stop.jpg",
                 caption:
                   "An in-campus shuttle stop - because of the size of the campus, the bus schedule is essentially the class schedule."
               }
@@ -212,16 +212,16 @@ export default [
             heading: "Public Bicycles Have Broken Free From Their Docks",
             images: [
               {
-                src: "assets/ubike-station.jpg",
+                src: "/assets/ubike-station.jpg",
                 caption: "A uBike docking station."
               },
               {
-                src: "assets/obike-hiding.jpg",
+                src: "/assets/obike-hiding.jpg",
                 caption:
                   "An oBike attempts to hide (in vain) from the authorities."
               },
               {
-                src: "assets/obike-camouflage.jpg",
+                src: "/assets/obike-camouflage.jpg",
                 caption:
                   "Another oBike pretends to be a motorcycle - can you spot it?"
               }
