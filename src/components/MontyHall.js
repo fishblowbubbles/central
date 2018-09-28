@@ -161,7 +161,7 @@ export class MontyHall extends Component {
         <Slider id="montyhall-slider">
           {SliderContent.map(item => (
             <div className="montyhall-slider-description">
-              <h2>{item.heading}</h2>
+              <h3>{item.heading}</h3>
               {item.content.map(paragraph => (
                 <p>
                   <br />
@@ -235,7 +235,7 @@ export class MontyHall extends Component {
           </div>
           <div className="montyhall-interactive-instructions">
             {this.state.stage === 0 ? (
-              <h2>PICK A DOOR</h2>
+              <h2>Pick A Door!</h2>
             ) : this.state.stage === 1 ? (
               <React.Fragment>
                 <RectangleButton
@@ -255,8 +255,8 @@ export class MontyHall extends Component {
               <React.Fragment>
                 <h2>
                   {this.doorItems[this.selection].content === "diamond"
-                    ? "WELL DONE!"
-                    : "UGH, GREMLIN!"}
+                    ? "Well Done!"
+                    : "Ugh, Gremlin!"}
                 </h2>
                 <RectangleButton
                   id="instruction-select"
