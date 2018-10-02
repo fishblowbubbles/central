@@ -16,8 +16,7 @@ export default class App extends Component {
   };
 
   handleContentClick = e => {
-    if (this.state.panelOpen)
-      this.togglePanel();
+    if (this.state.panelOpen) this.togglePanel();
   };
 
   togglePanel = () => {

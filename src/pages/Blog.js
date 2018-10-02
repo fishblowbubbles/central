@@ -26,7 +26,6 @@ export class Blog extends Component {
 
   handleReadClick = e => {
     if (!this.state.postOpen) this.togglePost();
-    e.stopPropagation();
   };
 
   handleHeroClick = e => {
