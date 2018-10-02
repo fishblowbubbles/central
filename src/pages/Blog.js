@@ -16,11 +16,9 @@ export class Blog extends Component {
 
   handleLinkClick = (e, x, y) => {
     const category = Posts[x];
-    const post = category.posts[y];
-
     this.setState({
       category: category.name,
-      current: post
+      current: category.posts[y]
     });
   };
 
@@ -137,7 +135,7 @@ export class Blog extends Component {
                 <div className="blog-post-content-section-text">
                   <p>{section.text}</p>
                 </div>
-                <Slider id="image-slider">
+                <Slider id="image-slider" key={new Date().getTime()}>
                   {section.images.map(image => (
                     <div className="slider-image">
                       <img src={image.src} />
