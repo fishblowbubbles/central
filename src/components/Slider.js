@@ -24,7 +24,7 @@ export class Slider extends Component {
 
   render() {
     return (
-      <div id={this.props.id} className="slider">
+      <div id={this.props.id} className="slider" key={this.props.key}>
         <div className="slider-content">
           {React.Children.map(this.props.children, (item, i) => {
             return this.state.position === i ? item : "";

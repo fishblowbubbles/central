@@ -235,7 +235,7 @@ export class MontyHall extends Component {
           </div>
           <div className="montyhall-interactive-instructions">
             {this.state.stage === 0 ? (
-              <h2>Pick A Door.</h2>
+              <h2>pick a door.</h2>
             ) : this.state.stage === 1 ? (
               <React.Fragment>
                 <RectangleButton
@@ -255,8 +255,8 @@ export class MontyHall extends Component {
               <React.Fragment>
                 <h2>
                   {this.doorItems[this.selection].content === "diamond"
-                    ? "Well Done!"
-                    : "Ugh, Gremlin!"}
+                    ? "nice job!"
+                    : "ugh, gremlin!"}
                 </h2>
                 <RectangleButton
                   id="instruction-select"
