@@ -106,7 +106,7 @@ export class Blog extends Component {
           <div className="blog-hero-content">
             <img src={this.state.current.thumbnail} />
             <h1>{this.state.current.title}</h1>
-            <h4>{this.state.category}</h4>
+            <h3>{this.state.category}</h3>
             <small>{this.state.current.date}</small>
             <RectangleButton
               id="post-open"
@@ -140,7 +140,7 @@ export class Blog extends Component {
                     <div className="slider-image">
                       <img src={image.src} />
                       <div className="slider-image-caption">
-                        {image.caption}
+                        <small>{image.caption}</small>
                       </div>
                     </div>
                   ))}
